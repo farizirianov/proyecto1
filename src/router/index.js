@@ -4,11 +4,19 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/main',
+    name: 'Main',
+    component: () => import('../views/Main.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/insignia',
@@ -32,5 +40,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+/*
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem("jwt") == null) {
+      next({
+        path: "/"
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})*/
 
 export default router

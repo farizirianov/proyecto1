@@ -1,14 +1,14 @@
 <template>
     <form ref="form">
         <v-text-field
-            v-model="loginUser.email"
+            v-model="login.email"
             :rules="emailRules"
             label="E-mail"
             required
             color="#039629"
         ></v-text-field>
         <v-text-field
-            v-model="loginUser.password"
+            v-model="login.password"
             :append-icon="showPassword ? svg.visibility : svg.visibilityOff"
             :type="showPassword ? 'text' : 'password'"
             name="input-10-1"
@@ -26,7 +26,7 @@
         <!-------------------------  END FORM ERRORS ------------------->
 
         <div class="mt-5">
-            <v-btn type="submit" class="mr-4" color="#039629" elevation="0" dark>
+            <v-btn v-on:click="loginUser" type="submit" class="mr-4" color="#039629" elevation="0" dark>
                 Entrar
             </v-btn>
             <v-btn color="#039629" elevation="0" dark>
@@ -36,6 +36,7 @@
     </form>
 </template>
 <script>
+import api from '../../services/api'
 // MIXINS
 // SVG ICONS
 import { mdiEyeOutline, mdiEyeOffOutline  } from '@mdi/js';
@@ -44,7 +45,7 @@ import { mdiEyeOutline, mdiEyeOffOutline  } from '@mdi/js';
 export default {
     data: () => ({
         showPassword: false,
-        loginUser: {
+        login: {
             email: '',
             password: ''
         },
@@ -56,6 +57,24 @@ export default {
             visibility: mdiEyeOutline,
             visibilityOff: mdiEyeOffOutline,
         },
-    })
+    }),
+    methods: {
+        async loginUser() {
+            try {
+                const user = await api.loginUser(this.login)
+                console.log(user)
+                const token = user.data.token
+                if (token) {
+                    localStorage.setItem("jwt", token)
+                    this.$router.push("/main")
+                } else {
+                    localStorage.setItem("jwt", "Error no token")
+                }
+            } catch (e) {
+                console.log(e)
+                localStorage.setItem("jwt", "Error")
+            }
+        }
+    }
 }
 </script>
