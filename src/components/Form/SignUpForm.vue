@@ -1,5 +1,5 @@
 <template>
-    <form ref="form">
+    <form v-on:submit.prevent ref="form">
         <v-text-field
             v-model="user.firstName"
             :rules="firtNameRules"
@@ -52,7 +52,7 @@
         <!-------------------------  END FORM ERRORS ------------------->
 
         <div class="mt-5">
-            <v-btn v-on:click="createUser" type="submit" color="#039629" elevation="0" dark>
+            <v-btn v-on:click="createUser" color="#039629" elevation="0" dark>
                 Sign Up
             </v-btn>
             <v-btn color="#039629" elevation="0" dark>
@@ -99,10 +99,14 @@ export default {
     methods: {
         async createUser() {
             try {
-                const user = await api.createUser(this.user)
-                console.log(user)
-                const token = user.data.token
-                console.log(token)
+                await api.createUser(this.user)
+                this.user = {
+                    email: '',
+                    firstName: '',
+                    lastName: '',
+                    password: '',
+                    confirmPassword: ''
+                }
                 /*if (token) {
                     localStorage.setItem("jwt", token)
                     this.router.push("/main")

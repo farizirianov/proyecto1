@@ -1,14 +1,14 @@
 <template>
-    <form ref="form">
+    <form v-on:submit.prevent ref="form">
         <v-text-field
-            v-model="login.email"
+            v-model="user.email"
             :rules="emailRules"
             label="E-mail"
             required
             color="#039629"
         ></v-text-field>
         <v-text-field
-            v-model="login.password"
+            v-model="user.password"
             :append-icon="showPassword ? svg.visibility : svg.visibilityOff"
             :type="showPassword ? 'text' : 'password'"
             name="input-10-1"
@@ -26,7 +26,7 @@
         <!-------------------------  END FORM ERRORS ------------------->
 
         <div class="mt-5">
-            <v-btn v-on:click="loginUser" type="submit" class="mr-4" color="#039629" elevation="0" dark>
+            <v-btn v-on:click="login" class="mr-4" color="#039629" elevation="0" dark>
                 Entrar
             </v-btn>
             <v-btn color="#039629" elevation="0" dark>
@@ -37,6 +37,7 @@
 </template>
 <script>
 import api from '../../services/api'
+import router from '../../router/index'
 // MIXINS
 // SVG ICONS
 import { mdiEyeOutline, mdiEyeOffOutline  } from '@mdi/js';
@@ -45,7 +46,7 @@ import { mdiEyeOutline, mdiEyeOffOutline  } from '@mdi/js';
 export default {
     data: () => ({
         showPassword: false,
-        login: {
+        user: {
             email: '',
             password: ''
         },
@@ -59,20 +60,13 @@ export default {
         },
     }),
     methods: {
-        async loginUser() {
+        async login() {
             try {
-                const user = await api.loginUser(this.login)
-                console.log(user)
-                const token = user.data.token
-                if (token) {
-                    localStorage.setItem("jwt", token)
-                    this.$router.push("/main")
-                } else {
-                    localStorage.setItem("jwt", "Error no token")
-                }
+                const muser = await api.loginUser(this.user)
+                localStorage.setItem("jwt", muser.data)
+                router.push({name: 'main'})
             } catch (e) {
                 console.log(e)
-                localStorage.setItem("jwt", "Error")
             }
         }
     }
