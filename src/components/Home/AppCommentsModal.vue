@@ -44,22 +44,6 @@
 
         </v-card-text>
         <v-divider></v-divider>
-
-        <!---------------------- ACTIONS BUTTONS -------------------->
-        <v-card-actions class="background-secundario">
-          <v-btn text @click="likeScream(isAuthenticated, data)" small color="grey">
-              <v-icon color="red" left v-if="isLiked">{{svg.heart}}</v-icon>
-              <v-icon color="red" left v-else>{{svg.heartOut}}</v-icon>
-              {{data.likeCount}} Likes
-          </v-btn>
-          <v-btn text small color="grey">
-            <v-icon>{{svg.comment}}</v-icon>1 comentario
-          </v-btn>
-          <div class="flex-grow-1"></div>
-            <v-btn color="cyan darken-1" text>Cerrar</v-btn>
-        </v-card-actions>
-        <!---------------------- END ACTIONS BUTTONS -------------------->
-
       </v-card>
       <!------------------------ END COMMENTS ----------------------->
 
