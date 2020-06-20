@@ -3,16 +3,16 @@
     <v-dialog v-model="dialog" persistent scrollable max-width="600px">
 
       <!------------------------ COMMENTS BUTTON ----------------------->
-      <template v-slot:activator="{}">
-        <v-btn color="#2c003e" text small>
-            <v-icon left>{{svg.comment}}</v-icon> 1 Comments
-        </v-btn>
-      </template>
+        <template v-slot:activator="{ on }">
+          <v-btn color="#2c003e" text small v-on="on">
+              <v-icon left>{{svg.comment}}</v-icon> 1 Comments
+          </v-btn>
+        </template>
       <!------------------------ COMMENTS BUTTON ----------------------->
 
       <!------------------------ COMMENTS ----------------------->
       <v-card>
-        <v-card-title class="primario white--text">{{data.userHandle}}</v-card-title>
+        <v-card-title class="primario white--text">something</v-card-title>
         <v-divider></v-divider>
         <v-card-text style="min-height: 300px; max-height: 500px;">
 
@@ -47,16 +47,7 @@
 
         <!---------------------- ACTIONS BUTTONS -------------------->
         <v-card-actions class="background-secundario">
-          <v-btn text @click="likeScream(isAuthenticated, data)" small color="grey">
-              <v-icon color="red" left v-if="isLiked">{{svg.heart}}</v-icon>
-              <v-icon color="red" left v-else>{{svg.heartOut}}</v-icon>
-              {{data.likeCount}} Likes
-          </v-btn>
-          <v-btn text small color="grey">
-            <v-icon>{{svg.comment}}</v-icon>1 comentario
-          </v-btn>
-          <div class="flex-grow-1"></div>
-            <v-btn color="cyan darken-1" text>Cerrar</v-btn>
+          <v-btn right="" color="cyan darken-1" text @click="dialog = false">Cerrar</v-btn>
         </v-card-actions>
         <!---------------------- END ACTIONS BUTTONS -------------------->
 
@@ -68,7 +59,7 @@
 </template>
 
 <script>
-// COMPONENTS
+// COMPONENTS @click="likeScream(isAuthenticated, data)"
 
 // SVG ICONS
 import { mdiCommentMultipleOutline, mdiHeartOutline, mdiHeart } from '@mdi/js';
@@ -84,6 +75,16 @@ export default {
       data: {
           type: Object
       }
-  }
+  },
+  data () {
+    return {
+      dialog: false,
+      svg: {
+        heart: mdiHeart,
+        heartOut: mdiHeartOutline,
+        comment: mdiCommentMultipleOutline
+      }
+    }
+  } 
 }
 </script>

@@ -78,7 +78,7 @@ export default {
     message: {
       avatar: 'Gold.png'
     },
-    sizeAvatar: 70
+    sizeAvatar: 50
   })
 }
 </script>
