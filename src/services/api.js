@@ -27,8 +27,8 @@ class api {
   }
 
   //----For post
-  static getPostById(data) {
-    return axios.get('user/${data}')
+  static getPostById(id) {
+    return axios.get(`post/${id}`)
   }
 }
 

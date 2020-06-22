@@ -4,17 +4,20 @@
     <v-row align="center" class="spacer" no-gutters>
       <v-col cols="2" sm="2" md="1">
         <v-avatar :size="sizeAvatar">
-          <v-img class="card-img" :src="user.image"></v-img>
+          <v-img class="card-img" :src="post.idUser.image"></v-img>
         </v-avatar>
       </v-col>
         
       <v-col>
         <p></p>
-        <h4>{{user.firstName}}+{{user.lastName}}</h4>
+        <h4>{{post.idUser.firstName}} {{post.idUser.lastName}}</h4>
         <p></p>
       </v-col>
 
-      <v-col>
+      <v-col cols="2">
+        <v-btn elevation="0" small absolute top fab style="transform: translateY(35px)">
+          <v-icon left  color="red">{{svg.edit}}</v-icon>
+        </v-btn>
         <AppDeleteScream></AppDeleteScream>
       </v-col>
     </v-row>
@@ -22,16 +25,12 @@
     <!-- -->
     <v-row>
       <v-col sm="2">
-        <v-row>
-          <div>
-            {{post.imagePost}}
-          </div>
-        </v-row>
-        <v-row>
-          <div>
-            {{post.content}}
-          </div>
-        </v-row>
+        <div align="center">
+          <v-img class="card-img" :src="post.imagePost"></v-img>
+        </div>
+        <div>
+          {{post.content}}
+        </div>
       </v-col>
     </v-row>
     <!-- -->
@@ -56,7 +55,7 @@
   import AppDeleteScream from '@/components/Home/AppDeleteScream.vue'
   import AppCommentsModal from '@/components/Home/AppCommentsModal.vue'
 
-  import { mdiCommentMultipleOutline, mdiHeart } from '@mdi/js'
+  import { mdiCommentMultipleOutline, mdiHeart, mdiFileEdit } from '@mdi/js'
 
   export default {
     components: {
@@ -66,20 +65,21 @@
     data: () => ({
       svg: {
         heart: mdiHeart,
-        comment: mdiCommentMultipleOutline
+        comment: mdiCommentMultipleOutline,
+        edit: mdiFileEdit
       },
       message: {
         avatar: 'Gold.png'
       },
       sizeAvatar: 50,
-      post: {},
-      user: {}
+      post: {}
     }),
     methods: {
       async getPost() {
+        const id = "5ef00099f936bf1b9c6e704d"
         try {
-          const post = await api.getPostById()
-          console.log(post)
+          const post = await api.getPostById(id)
+          this.post = post.data
         } catch (e) {
           console.log(e)
         } 
