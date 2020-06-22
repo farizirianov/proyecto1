@@ -12,8 +12,9 @@
                         </v-list-item>
 
                     </v-list>
-                    <v-list>
+                    <v-list rounded>
                         <!------------------- NOTIFICATION ITEM ------------------>
+                        <NotificationItem class="notification"></NotificationItem>
                         <!------------------- END NOTIFICATION ITEM ------------------>
                     </v-list>
                     <!--------------------- END NOTIFICATION LIST --------------------->
@@ -26,9 +27,14 @@
 
 <script>
 // COMPONENTS
+import NotificationItem from '@/components/Notifications/NotificationItem.vue';
 
 // VUEX
+import { mapGetters } from 'vuex';
 export default {
+    components: {
+        NotificationItem
+    },
     data: () => ({
         item: 1,
         items: [
@@ -39,3 +45,16 @@ export default {
     })
     }
 </script>
+
+<style>
+.badge-notification {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: red;
+  position: absolute;
+  top: 1px;
+  right: 5px;
+}
+</style>
+

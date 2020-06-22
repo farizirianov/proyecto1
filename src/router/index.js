@@ -19,6 +19,11 @@ const routes = [
     }
   },
   {
+    path: '/inicio',
+    name: 'inicio',
+    component: () => import('../views/Inicio.vue')
+  },
+  {
     path: '/insignia',
     name: 'insignia',
     component: () => import('../views/SalaInsignias.vue')
@@ -33,6 +38,11 @@ const routes = [
     name: 'signup',
     component: () => import('../views/Signup.vue')
   },
+  {
+    path: '/notifications',
+    name: 'notifications',
+    component: () => import('../views/Notifications.vue')
+  }
 ]
 
 const router = new VueRouter({

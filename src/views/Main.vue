@@ -7,6 +7,9 @@
             <ul class="list-group">
               <li class="list-group-item">Name : {{ user.firstName }}</li>
               <li class="list-group-item">Email : {{ user.email }}</li>
+              <li class="list-group-item">Foto
+                <img :src="'http://localhost:3000/'+user.image" height="100" width="100">
+              </li>
             </ul>
           </div>
         </div>
