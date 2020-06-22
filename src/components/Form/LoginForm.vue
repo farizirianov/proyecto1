@@ -1,19 +1,19 @@
 <template>
-    <form ref="form">
+    <form v-on:submit.prevent ref="form">
         <v-text-field
-            v-model="loginUser.email"
+            v-model="user.email"
             :rules="emailRules"
-            label="E-mail"
+            label="Correo"
             required
             color="#039629"
         ></v-text-field>
         <v-text-field
-            v-model="loginUser.password"
+            v-model="user.password"
             :append-icon="showPassword ? svg.visibility : svg.visibilityOff"
             :type="showPassword ? 'text' : 'password'"
             name="input-10-1"
-            label="Password"
-            hint="At least 6 char acters"
+            label="Contraseña"
+            hint="Mínimo 6 digitos"
             counter
             @click:append="showPassword = !showPassword"
             color="#039629"
@@ -26,7 +26,7 @@
         <!-------------------------  END FORM ERRORS ------------------->
 
         <div class="mt-5">
-            <v-btn type="submit" class="mr-4" color="#039629" elevation="0" dark>
+            <v-btn v-on:click="login" class="mr-4" color="#039629" elevation="0" dark>
                 Entrar
             </v-btn>
             <v-btn color="#039629" elevation="0" dark>
@@ -36,6 +36,8 @@
     </form>
 </template>
 <script>
+import api from '../../services/api'
+import router from '../../router/index'
 // MIXINS
 // SVG ICONS
 import { mdiEyeOutline, mdiEyeOffOutline  } from '@mdi/js';
@@ -44,18 +46,29 @@ import { mdiEyeOutline, mdiEyeOffOutline  } from '@mdi/js';
 export default {
     data: () => ({
         showPassword: false,
-        loginUser: {
+        user: {
             email: '',
             password: ''
         },
         emailRules: [
-            v => !!v || 'E-mail is required',
-            v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+            v => !!v || 'Correo Requerido',
+            v => /.+@.+\..+/.test(v) || 'Correo no valido',
         ],
         svg: {
             visibility: mdiEyeOutline,
             visibilityOff: mdiEyeOffOutline,
         },
-    })
+    }),
+    methods: {
+        async login() {
+            try {
+                const muser = await api.loginUser(this.user)
+                localStorage.setItem("jwt", muser.data)
+                router.push({name: 'main'})
+            } catch (e) {
+                console.log(e)
+            }
+        }
+    }
 }
 </script>
