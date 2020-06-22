@@ -34,6 +34,11 @@ Vue.use(VueRouter)
     path: '/notifications',
     name: 'notifications',
     component: () => import('../views/Notifications.vue')
+  },
+  {
+    path: '/prueba',
+    name: 'prueba',
+    component: () => import('../views/prueba.vue')
   }
 ]
 

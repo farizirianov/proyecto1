@@ -4,7 +4,7 @@
             <v-container>
                 <v-row>
                     <v-col cols="12">
-                        <v-textarea label="Escribe un comentario" type="text" required no-resize rows="4" color="#32BCC3">
+                        <v-textarea label="¿Que estas pensando?" type="text" required no-resize rows="1" color="#039629">
                         </v-textarea>
                     </v-col>
                 </v-row>
@@ -12,12 +12,11 @@
         </v-card-text>
         <v-card-actions>
         <div class="flex-grow-1"></div>
-            <v-btn color="#32BCC3" text 
-            @click="$emit('click')">
+            <v-btn color="#039629" text>
                 Cerrar
             </v-btn>
-            <v-btn color="#32BCC3" text type="submit">
-                Post your scream
+            <v-btn color="#039629" text type="submit">
+                Publicar
             </v-btn>
         </v-card-actions>
     </form>
