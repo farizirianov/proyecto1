@@ -21,20 +21,23 @@
       </v-col>
       <!------------------------ END SCREAM LIST ----------------------->
 
+            <AppPostScream></AppPostScream>
     </v-row>
   </v-container>
 </template>
 
 <script>
 // COMPONENTS
-import AppScreamCard from '@/components/Home/AppScreamCard.vue'
 import AppPost from '@/components/Post/AppPost.vue'
+import AppScreamCard from '@/components/Home/AppScreamCard.vue';
+import AppPostScream from '@/components/Post/AppPostScream';
 
 export default {
   name: 'Home',
   components: {
     AppScreamCard,
-    AppPost
+    AppPost,
+    AppPostScream
   }
 }
 </script>

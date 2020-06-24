@@ -26,7 +26,7 @@
     <v-row>
       <v-col sm="2">
         <div align="center">
-          <v-img class="card-img" :src="post.imagePost"></v-img>
+          <v-img class="card-img" :src="post.imagePost">hola</v-img>
         </div>
         <div>
           {{post.content}}
@@ -37,10 +37,11 @@
     <v-row>
       <v-col cols="12" md="8" class="relative">
         <v-card-actions>
-          <v-btn color="#2c003e" text small>
-            <v-icon left  color="red">{{svg.heart}}</v-icon>
-            0 Likes
+          <v-btn color="#2c003e" text small v-on:click="like">
+            <v-icon left  :color="color">{{svg.heart}}</v-icon>
           </v-btn>
+          <LikeList :id="post._id">
+          </LikeList>
           <AppCommentsModal></AppCommentsModal>
         </v-card-actions>
       </v-col>
@@ -54,13 +55,14 @@
 
   import AppDeleteScream from '@/components/Home/AppDeleteScream.vue'
   import AppCommentsModal from '@/components/Home/AppCommentsModal.vue'
-
+  import LikeList from '@/components/Like/LikeList.vue'
   import { mdiCommentMultipleOutline, mdiHeart, mdiFileEdit } from '@mdi/js'
 
   export default {
     components: {
       AppDeleteScream,
-      AppCommentsModal
+      AppCommentsModal,
+      LikeList
     },
     data: () => ({
       svg: {
@@ -72,7 +74,8 @@
         avatar: 'Gold.png'
       },
       sizeAvatar: 50,
-      post: {}
+      post: {},
+      color: "grey"
     }),
     methods: {
       async getPost() {
@@ -83,10 +86,33 @@
         } catch (e) {
           console.log(e)
         } 
+      },
+      async like() {
+        if(this.color === "grey") {
+          this.color = "red"
+          const idPost = "5ef00099f936bf1b9c6e704d"
+          const idUser = "5eed9181c64b471218685a6b"
+          await api.createLike(idUser, idPost)
+        } else if (this.color === "red") {
+          this.color = "grey"
+          const idUser = "5eed9181c64b471218685a6b"
+          await api.deleteLike(idUser)
+        }
+      },
+      async validateLike() {
+        const id = "5eed9181c64b471218685a6b"
+        const like = await api.getUserLike(id)
+        console.log(like)
+        if (like.data !== null) {
+          this.color = "red"
+        } else {
+          this.color = "grey" 
+        }
       }
     },
     created() {
       this.getPost()
+      this.validateLike()
     }
   }
 </script>

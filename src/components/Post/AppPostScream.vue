@@ -9,7 +9,7 @@
                 <v-icon>{{svg.pencil}}</v-icon>
             </v-btn>
           </template>
-        <span>Post a scream</span>
+        <span>Publica una Actividad</span>
       </v-tooltip>
     </template>
     <!------------------------ END POST BUTTON ----------------------->
@@ -18,7 +18,7 @@
     <!------------------------ POST FORM ----------------------->
     <v-card>
       <v-card-title class="primario white--text">
-        Post a scream
+        Publica una Actividad
       </v-card-title>
       <!------------------------ FORM COMPONENT ----------------------->
       <AppPostForm @click="dialog = false"></AppPostForm>
@@ -32,7 +32,7 @@
 
 <script>
 // COMPONENTS
-import AppPostForm from '@/components/AppPostForm.vue';
+import AppPostForm from '@/components/Post/AppPostForm.vue';
 
 // SVG ICONS
 import { mdiPencil, mdiPencilOutline, mdiPencilRemoveOutline } from '@mdi/js';
@@ -43,7 +43,6 @@ export default {
   },
   data: () => ({
       dialog: false,
-      loadingImport: false,
       svg: {
           pencil: mdiPencilRemoveOutline
       }

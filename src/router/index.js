@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Inicio from '../views/Inicio.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Inicio',
+    component: Inicio
   },
   {
     path: '/main',
@@ -19,9 +19,9 @@ const routes = [
     }
   },
   {
-    path: '/inicio',
-    name: 'inicio',
-    component: () => import('../views/Inicio.vue')
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/insignia',
@@ -42,6 +42,11 @@ const routes = [
     path: '/notifications',
     name: 'notifications',
     component: () => import('../views/Notifications.vue')
+  },
+  {
+    path: '/prueba',
+    name: 'prueba',
+    component: () => import('../views/prueba.vue')
   }
 ]
 

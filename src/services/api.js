@@ -30,6 +30,25 @@ class api {
   static getPostById(id) {
     return axios.get(`post/${id}`)
   }
+
+  //----For Likes
+  static createLike(idU, idP) {
+    return axios.post(`like/`, {
+      idUser: idU,
+      idPost: idP
+    })
+  }
+
+  static deleteLike (id) {
+    return axios.delete(`like/user/${id}`)
+  }
+  static getUserLike(idUser) {
+    return axios.get(`like/user/${idUser}`)
+  }
+  static getAllLikeByPost(idPost) {
+    return axios.get(`like/post/${idPost}`)
+  }
+
 }
 
 export default api
