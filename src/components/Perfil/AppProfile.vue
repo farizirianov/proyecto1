@@ -8,17 +8,15 @@
 
                 <!------------------ EDIT IMAGE BUTTON ------------------>
                 <div>
-                    <input type="file" id="imageInput" hidden>
+                    <input type="file" id="imageInput" hidden >
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
-                            <v-btn class="mx-2" fab small color="#32BCC3" absolute right bottom v-on="on" dark>
+                            <v-btn class="mx-2" fab small color="#32BCC3" absolute right bottom @click="editImage" v-on="on" dark>
                                 <v-icon dark>{{svg.camera}}</v-icon>
                             </v-btn>
                         </template>
                         <span>Edit Profile Image</span>
-                    </v-tooltip>
-                </div>               
-                <div>
+                    </v-tooltip>             
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
                             <v-btn class="mx-2" fab small color="#32BCC3" absolute left bottom v-on="on">
@@ -29,10 +27,7 @@
                     </v-tooltip>
                 </div>
                 <!------------------ EDIT IMAGE BUTTON ------------------>
-            </v-col>
-
-            <v-col offset="1" cols="10" class="background">                   
-            </v-col>              
+            <v-col offset="1" cols="10" class="background">
         </v-row>
     </div>
 </template>
@@ -42,9 +37,7 @@
 
 // SVG ICONS
 import { mdiMapMarker, mdiWeb, mdiCalendar, mdiPencil, mdiPencilOutline, mdiCameraRetakeOutline, mdiStar } from '@mdi/js';
-
 // VUEX
-import { mapGetters } from 'vuex';
 export default {
     components: {
     },

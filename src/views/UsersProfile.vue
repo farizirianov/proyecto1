@@ -7,6 +7,7 @@
 
           <!------------------------ SCREAM ITEM ----------------------->
           <v-card class="mb-5" elevation="0">
+            <AppScreamCard :scream="scream" ></AppScreamCard>
           </v-card>
           <!------------------------ END SCREAM ITEM ----------------------->
 
@@ -21,6 +22,7 @@
       <!------------------------ PROFILE ----------------------->
       <v-col cols="12" sm="4" order="-1" order-sm="2" >
           <v-card min-height="300" min-width="150" elevation="0" >
+             <AppProfile></AppProfile>
           </v-card>
       </v-col>
       <!------------------------ END PROFILE ----------------------->
@@ -31,6 +33,8 @@
 
 <script>
 // COMPONENTS
+import AppProfile from '@/components/Perfil/AppProfile.vue';
+import AppScreamCard from '@/components/Home/AppScreamCard.vue';
 // VUEX
 
 export default {
