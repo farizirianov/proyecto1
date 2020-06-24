@@ -22,6 +22,7 @@
       <!------------------------ END SCREAM LIST ----------------------->
 
             <AppPostScream></AppPostScream>
+            <PostCard></PostCard>
     </v-row>
   </v-container>
 </template>
@@ -29,15 +30,17 @@
 <script>
 // COMPONENTS
 import AppPost from '@/components/Post/AppPost.vue'
-import AppScreamCard from '@/components/Home/AppScreamCard.vue';
-import AppPostScream from '@/components/Post/AppPostScream';
+import PostCard from '@/components/Post/PostCard.vue'
+import AppScreamCard from '@/components/Home/AppScreamCard.vue'
+import AppPostScream from '@/components/Post/AppPostScream'
 
 export default {
   name: 'Home',
   components: {
     AppScreamCard,
     AppPost,
-    AppPostScream
+    AppPostScream,
+    PostCard
   }
 }
 </script>
