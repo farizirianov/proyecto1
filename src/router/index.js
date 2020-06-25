@@ -1,19 +1,27 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Inicio from '../views/Inicio.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Inicio',
+    component: Inicio
   },
   {
-    path: '/inicio',
-    name: 'inicio',
-    component: () => import('../views/Inicio.vue')
+    path: '/main',
+    name: 'main',
+    component: () => import('../views/Main.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/insignia',
@@ -47,5 +55,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+/*
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem("jwt") == null) {
+      next({
+        path: "/"
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})*/
 
 export default router

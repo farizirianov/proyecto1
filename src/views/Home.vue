@@ -9,6 +9,9 @@
           <v-card class="mb-5" elevation="0">
             <AppScreamCard></AppScreamCard>
           </v-card>
+          <div class="mb-5" elevation="0">
+            <AppPost></AppPost>
+          </div>
           <!------------------------ END SCREAM ITEM ----------------------->
 
       </v-col>
@@ -19,20 +22,25 @@
       <!------------------------ END SCREAM LIST ----------------------->
 
             <AppPostScream></AppPostScream>
+            <PostCard></PostCard>
     </v-row>
   </v-container>
 </template>
 
 <script>
 // COMPONENTS
-import AppScreamCard from '@/components/Home/AppScreamCard.vue';
-import AppPostScream from '@/components/Post/AppPostScream';
+import AppPost from '@/components/Post/AppPost.vue'
+import PostCard from '@/components/Post/PostCard.vue'
+import AppScreamCard from '@/components/Home/AppScreamCard.vue'
+import AppPostScream from '@/components/Post/AppPostScream'
 
 export default {
   name: 'Home',
   components: {
-    AppScreamCard,
-    AppPostScream
+    AppPost,
+    AppPostScream,
+    PostCard,
+    AppScreamCard
   }
 }
 </script>

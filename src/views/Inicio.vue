@@ -1,5 +1,7 @@
 <template>
-  <InicioComponent></InicioComponent>
+  <v-container style="min-height: 100%" class="background-inicio">
+      <InicioComponent></InicioComponent>
+  </v-container>
 </template>
 
 <script>
