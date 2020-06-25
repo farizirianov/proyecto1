@@ -1,19 +1,21 @@
 <template>
   <v-app>
-    <Navbar></Navbar>
-    <v-content>
+    <v-main>
+      <navb></navb>
       <router-view></router-view>
-    </v-content>
+      <Navbar></Navbar>
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import Navbar from './components/Layout/AppNavbar';
-
+import Navbar from './components/Layout/NavBar'
+import navb from './components/Layout/AppNavbar'
 export default {
   name: 'App',
   components: {
-    Navbar
+    Navbar,
+    navb
   }
 };
 </script>
