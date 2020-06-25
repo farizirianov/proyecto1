@@ -1,7 +1,6 @@
 <template>
 <v-card
     class="mx-auto"
-    color="#c6f8d3"
   >
     <v-card-text>
       <div>
