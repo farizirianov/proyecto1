@@ -10,7 +10,7 @@
         <v-text-field
             v-model="formNewUser.email"
             :rules="emailRules"
-            label="E-mail"
+            label="E-mxxxxxxail"
             required
             color="#039629"
         ></v-text-field>
