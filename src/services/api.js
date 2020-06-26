@@ -26,11 +26,29 @@ class api {
     })
   }
 
-  //----For post
+  //----For Posts
+  static createPost(data, id) {
+    return axios.post('post/', {
+      content: data.content,
+      imagePost: data.imagePost,
+      idUser: id
+    })
+  }
   static getPostById(id) {
     return axios.get(`post/${id}`)
   }
-
+  static getAllPost() {
+    return axios.get('post/')
+  }
+  //----For Comments
+  static createComment() {}
+  static getAllCommentByPost(idPost) {}
+  static deleteComment(id) {
+    return axios.delete('comment/id')
+  }
+  static updateComment(id) {
+    return axios.put('comment/id')
+  }
   //----For Likes
   static createLike(idU, idP) {
     return axios.post(`like/`, {
@@ -42,8 +60,8 @@ class api {
   static deleteLike (id) {
     return axios.delete(`like/user/${id}`)
   }
-  static getUserLike(idUser) {
-    return axios.get(`like/user/${idUser}`)
+  static getUserLike(idUser,idPost) {
+    return axios.get(`like/user/${idUser}/${idPost}`)
   }
   static getAllLikeByPost(idPost) {
     return axios.get(`like/post/${idPost}`)

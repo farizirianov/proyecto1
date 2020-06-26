@@ -1,38 +1,33 @@
 <template>
-  <v-container fluid pa-3>
-    <v-row>
-
-      <!------------------------ SCREAM LIST ----------------------->
-      <v-col cols="12" sm="8" order="1" order-sm="1">
-
-          <!------------------------ SCREAM ITEM ----------------------->
-          <v-card class="mb-5" elevation="0">
-            <AppScreamCard></AppScreamCard>
-          </v-card>
-          <div class="mb-5" elevation="0">
-            <AppPost></AppPost>
-          </div>
-          <!------------------------ END SCREAM ITEM ----------------------->
-
-      </v-col>
-      <v-col cols="12" sm="8" order="1">
-          <v-card class="mb-5" elevation="0">
-          </v-card>
-      </v-col>
-      <!------------------------ END SCREAM LIST ----------------------->
-
-            <AppPostScream></AppPostScream>
-            <PostCard></PostCard>
-    </v-row>
-  </v-container>
+  <v-main>
+    <SearchBar></SearchBar>
+      <v-list class="pa-0">
+        <v-list-item-group v-model="posts" class="background-inicio">
+          <v-list-item
+            v-for="(post, i) in posts"
+              :key="i"
+              link
+          >
+            <v-list-item-content>
+              <AppPost :idUser="user._id" :posts="post"></AppPost>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    <Navbar :idUser="user._id"></Navbar>
+  </v-main>
 </template>
 
 <script>
+import api from '../services/api'
+import VueJwtDecode from "vue-jwt-decode"
 // COMPONENTS
 import AppPost from '@/components/Post/AppPost.vue'
 import PostCard from '@/components/Post/PostCard.vue'
 import AppScreamCard from '@/components/Home/AppScreamCard.vue'
 import AppPostScream from '@/components/Post/AppPostScream'
+import SearchBar from '@/components/Layout/SearchBar'
+import Navbar from '../components/Layout/NavBar'
 
 export default {
   name: 'Home',
@@ -40,7 +35,37 @@ export default {
     AppScreamCard,
     AppPost,
     AppPostScream,
-    PostCard
+    PostCard,
+    Navbar,
+    SearchBar
+  },
+  data: () =>({
+    user: {},
+    post: 1,
+    posts: []
+  }),
+  methods: {
+    getUserDetails() {
+      try {
+        const token = localStorage.getItem("jwt")
+        let decoded = VueJwtDecode.decode(token)
+        this.user = decoded  
+      } catch (e) {
+        console.log({message: e})        
+      }
+    },
+    async getAllPost() {
+      try {
+        const post = await api.getAllPost()
+        this.posts = post.data
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  },
+  created() {
+    this.getUserDetails()
+    this.getAllPost()
   }
 }
 </script>

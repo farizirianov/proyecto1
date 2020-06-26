@@ -24,7 +24,11 @@ a {
 .hover {
     cursor: pointer;
 }
-
+.init {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
 
 
 
@@ -50,5 +54,5 @@ a {
     background: #191C1E;
 }
 .background-inicio {
-    background: #49b365  ;
+    background: #c6f8d3  ;
 }

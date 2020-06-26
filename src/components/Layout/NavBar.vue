@@ -15,10 +15,7 @@
       <span>Logros</span>
       <v-icon>{{svg.trophy}}</v-icon>
     </v-btn>
-    <v-btn style="height: 56px">
-      <span>New Post</span>
-      <v-icon>{{svg.post}}</v-icon>
-    </v-btn>
+    <PostCard :idUser="this.idUser"></PostCard>
     <v-btn to="/notifications" style="height: 56px">
       <span>Notificaciones</span>
       <v-icon>{{svg.notification}}</v-icon>
@@ -31,10 +28,12 @@
 </template>
 
 <script>
+  import PostCard from '@/components/Post/PostCard.vue'
   import {mdiHome, mdiAccount, mdiBellOutline, mdiTrophy, mdiPost} from '@mdi/js'
   export default {
+    props: ['idUser'],
     components: {
-
+      PostCard
     },
     data: () => ({
       svg: {

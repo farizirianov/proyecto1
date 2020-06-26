@@ -1,4 +1,6 @@
 <template>
+  <v-main>
+    <SearchBar></SearchBar>
   <v-container fluid>
     <v-row justify="center">
       <img
@@ -83,9 +85,19 @@
       </v-expansion-panels>
     </v-row>
   </v-container>
+  <Navbar></Navbar>
+  </v-main>
 </template>
+
 <script>
+  import Navbar from '@/components/Layout/NavBar'
+  import SearchBar from '@/components/Layout/SearchBar'
+
   export default {
+    components: {
+      Navbar,
+      SearchBar
+    },
     data: () => ({      
       messages: [
         {

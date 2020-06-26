@@ -1,20 +1,26 @@
 <template>
     <v-container class="gray" style="min-height: 100vh;">
+      <InitBar2></InitBar2>
         <v-row justify="center">
             <v-col cols="11" sm="6" md="4">
                     <SignUpForm name="Create an account"></SignUpForm>
             </v-col>
         </v-row>
+      <InitNavbar></InitNavbar>
     </v-container>
 </template>
 
 <script>
 // COMPONENTS
 import SignUpForm from '@/components/Form/SignUpForm';
+import InitBar2 from '@/components/Layout/InitBar2'
+import InitNavbar from '@/components/Layout/InitNavBar'
 
 export default {
     components: {
-        SignUpForm
+        SignUpForm,
+        InitBar2,
+        InitNavbar
     },
 }
 </script>

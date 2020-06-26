@@ -64,7 +64,7 @@ export default {
             try {
                 const muser = await api.loginUser(this.user)
                 localStorage.setItem("jwt", muser.data)
-                router.push({name: 'main'})
+                router.push({name: 'home'})
             } catch (e) {
                 console.log(e)
             }
