@@ -7,7 +7,7 @@
     >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Grun</v-toolbar-title>
+      <v-toolbar-title>{{this.title}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -17,6 +17,7 @@
 <script>
 
   export default {
+    props: ['title'],
     components: {
     },
     data: () => ({

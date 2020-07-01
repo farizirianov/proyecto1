@@ -1,12 +1,12 @@
 <template>
-  <v-main>
-    <SearchBar></SearchBar>
+  <v-main class="pa-0">
+    <SearchBar :title="title"></SearchBar>
       <v-list class="pa-0">
         <v-list-item-group v-model="posts" class="background-inicio">
           <v-list-item
             v-for="(post, i) in posts"
-              :key="i"
-              link
+            :key="i"
+            link
           >
             <v-list-item-content>
               <AppPost :idUser="user._id" :posts="post"></AppPost>
@@ -40,6 +40,7 @@ export default {
     SearchBar
   },
   data: () =>({
+    title: 'Inicio',
     user: {},
     post: 1,
     posts: []

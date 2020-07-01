@@ -21,6 +21,7 @@ const routes = [
   {
     path: '/insignia',
     name: 'insignia',
+    props: true,
     component: () => import('../views/SalaInsignias.vue'),
     meta: {
       requiresAuth: true
@@ -40,6 +41,15 @@ const routes = [
     path: '/notifications',
     name: 'notifications',
     component: () => import('../views/Notifications.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/perfil',
+    name: 'perfil',
+    props: true,
+    component: () => import('../views/Perfil.vue'),
     meta: {
       requiresAuth: true
     }

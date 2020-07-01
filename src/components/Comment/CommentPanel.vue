@@ -8,7 +8,7 @@
         </v-btn>
       </template>
 
-      <v-card class="rounded">
+      <v-card class="rounded" :key="keyRender">
         <v-card-title class="primario white--text pa-3">
           <v-row align="center" class="spacer" no-gutters>
             <v-col>
@@ -21,23 +21,20 @@
             </v-col>
           </v-row>
         </v-card-title>
-        <v-divider></v-divider>
-          <CommentApp>
+          <CommentApp :idPost="this.idPost" class="pa-2">
           </CommentApp>
         <v-divider></v-divider>
-        <div class="pa-3">
-        </div>
-        <v-divider></v-divider>
         <v-card-actions>
-          <v-textarea 
+          <v-textarea
             required rows="1" no-resize
             auto-grow
             color="#039629"
             type="text"
             class="pa-1"
+            v-model="comment.content"
           >
           </v-textarea>
-          <v-btn text class="primario white--text pa-1">
+          <v-btn text class="primario white--text" v-on:click="createComment">
             Send
           </v-btn>
         </v-card-actions>
@@ -47,9 +44,11 @@
 </template>
 
 <script>
+  import api from '../../services/api'
   import CommentApp from '@/components/Comment/CommentApp.vue'
   import { mdiComment, mdiCloseThick } from '@mdi/js'
   export default {
+    props: ['idUser', 'idPost'],
     components: {
       CommentApp
     },
@@ -58,7 +57,29 @@
       svg: {
         comment: mdiComment,
         close: mdiCloseThick
+      },
+      comment: {},
+      keyRender: 0
+    }),
+    methods: {
+      async createComment() {
+        try {
+          if (this.comment.content !== '') {
+            await api.createComment(this.comment, this.idUser, this.idPost)
+            const prueba = await api.updateListInsignias(this.idUser, 'Comment', 1)
+            console.log(prueba)
+            this.comment = {
+              content: ''
+            }
+            this.renderPage()
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      renderPage() {
+        this.keyRender += 1
       }
-    })
+    }
   }
 </script>

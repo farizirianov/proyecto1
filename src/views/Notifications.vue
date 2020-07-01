@@ -1,6 +1,6 @@
 <template>
     <v-main>
-        <SearchBar></SearchBar>
+        <SearchBar :title="title"></SearchBar>
     <v-container>
         <v-row>
             <v-col cols="12" offset-sm="3" sm="6">
@@ -44,6 +44,7 @@ export default {
         SearchBar
     },
     data: () => ({
+        title: 'Notificaciones',
         item: 1,
         items: [
             { text: 'Real-Time', icon: 'mdi-clock' },

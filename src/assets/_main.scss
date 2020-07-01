@@ -26,15 +26,22 @@ a {
 }
 .init {
     align-items: center;
-    justify-content: center;
-    display: flex;
+    justify-content: center
 }
 
+.list {
+    height:200px;
+    overflow-y:auto
+}
+.span {
+    font-size: medium;
+}
 
 
 //###################################################################
 //                             COLORS
 //###################################################################
+
 .primario {
     background:  #039629 !important;
 }
@@ -46,6 +53,9 @@ a {
 }
 .gray {
     background: #d6dfe2 !important;
+}
+.sexto {
+    background: #B9F6CA;
 }
 .text-secundario {
     color: #191C1E;
