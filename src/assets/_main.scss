@@ -24,13 +24,24 @@ a {
 .hover {
     cursor: pointer;
 }
+.init {
+    align-items: center;
+    justify-content: center
+}
 
-
+.list {
+    height:200px;
+    overflow-y:auto
+}
+.span {
+    font-size: medium;
+}
 
 
 //###################################################################
 //                             COLORS
 //###################################################################
+
 .primario {
     background:  #039629 !important;
 }
@@ -49,6 +60,9 @@ a {
 .gray {
     background: #d6dfe2 !important;
 }
+.sexto {
+    background: #B9F6CA;
+}
 .text-secundario {
     color: #191C1E;
 }
@@ -56,5 +70,5 @@ a {
     background: #191C1E;
 }
 .background-inicio {
-    background: #49b365  ;
+    background: #c6f8d3  ;
 }

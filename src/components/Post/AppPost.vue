@@ -4,13 +4,13 @@
     <v-row align="center" class="spacer" no-gutters>
       <v-col cols="2" sm="2" md="1">
         <v-avatar :size="sizeAvatar">
-          <v-img class="card-img" :src="post.idUser.image"></v-img>
+          <v-img class="card-img" :src="this.posts.idUser.image"></v-img>
         </v-avatar>
       </v-col>
         
       <v-col>
         <p></p>
-        <h4>{{post.idUser.firstName}} {{post.idUser.lastName}}</h4>
+        <h4>{{this.posts.idUser.firstName}} {{this.posts.idUser.lastName}}</h4>
         <p></p>
       </v-col>
 
@@ -26,10 +26,10 @@
     <v-row>
       <v-col sm="2">
         <div align="center">
-          <v-img class="card-img" :src="post.imagePost">hola</v-img>
+          <v-img class="card-img" :src="this.posts.imagePost">hola</v-img>
         </div>
         <div>
-          {{post.content}}
+          {{this.posts.content}}
         </div>
       </v-col>
     </v-row>
@@ -40,9 +40,9 @@
           <v-btn color="#2c003e" text small v-on:click="like">
             <v-icon left  :color="color">{{svg.heart}}</v-icon>
           </v-btn>
-          <LikeList :id="post._id">
+          <LikeList :id="this.posts._id">
           </LikeList>
-          <AppCommentsModal></AppCommentsModal>
+          <CommentPanel :idUser="this.idUser" :idPost="this.posts._id"></CommentPanel>
         </v-card-actions>
       </v-col>
     </v-row>
@@ -53,15 +53,14 @@
 
   import api from '../../services/api'
 
-  import AppDeleteScream from '@/components/Home/AppDeleteScream.vue'
-  import AppCommentsModal from '@/components/Home/AppCommentsModal.vue'
+  import CommentPanel from '@/components/Comment/CommentPanel.vue'
   import LikeList from '@/components/Like/LikeList.vue'
   import { mdiCommentMultipleOutline, mdiHeart, mdiFileEdit } from '@mdi/js'
 
   export default {
+    props: ['idUser', 'posts'],
     components: {
-      AppDeleteScream,
-      AppCommentsModal,
+      CommentPanel,
       LikeList
     },
     data: () => ({
@@ -74,35 +73,22 @@
         avatar: 'Gold.png'
       },
       sizeAvatar: 50,
-      post: {},
       color: "grey"
     }),
     methods: {
-      async getPost() {
-        const id = "5ef00099f936bf1b9c6e704d"
-        try {
-          const post = await api.getPostById(id)
-          this.post = post.data
-        } catch (e) {
-          console.log(e)
-        } 
-      },
       async like() {
         if(this.color === "grey") {
           this.color = "red"
-          const idPost = "5ef00099f936bf1b9c6e704d"
-          const idUser = "5eed9181c64b471218685a6b"
-          await api.createLike(idUser, idPost)
+          await api.createLike(this.idUser, this.posts._id)
         } else if (this.color === "red") {
           this.color = "grey"
-          const idUser = "5eed9181c64b471218685a6b"
-          await api.deleteLike(idUser)
+          const likedel = await api.getUserLike(this.idUser, this.posts._id)
+          await api.deleteLike(likedel.data._id)
         }
+        this.$forceUpdate()
       },
       async validateLike() {
-        const id = "5eed9181c64b471218685a6b"
-        const like = await api.getUserLike(id)
-        console.log(like)
+        const like = await api.getUserLike(this.idUser, this.posts._id)
         if (like.data !== null) {
           this.color = "red"
         } else {
@@ -111,7 +97,6 @@
       }
     },
     created() {
-      this.getPost()
       this.validateLike()
     }
   }

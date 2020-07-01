@@ -1,4 +1,6 @@
 <template>
+    <v-main>
+        <SearchBar :title="title"></SearchBar>
     <v-container>
         <v-row>
             <v-col cols="12" offset-sm="3" sm="6">
@@ -23,19 +25,26 @@
             </v-col>
         </v-row>        
     </v-container>
+    <Navbar></Navbar>
+    </v-main>
 </template>
 
 <script>
 // COMPONENTS
+import Navbar from '@/components/Layout/NavBar'
+import SearchBar from '@/components/Layout/SearchBar'
 import NotificationItem from '@/components/Notifications/NotificationItem.vue';
 
 // VUEX
 import { mapGetters } from 'vuex';
 export default {
     components: {
-        NotificationItem
+        NotificationItem,
+        Navbar,
+        SearchBar
     },
     data: () => ({
+        title: 'Notificaciones',
         item: 1,
         items: [
             { text: 'Real-Time', icon: 'mdi-clock' },

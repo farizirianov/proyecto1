@@ -11,22 +11,21 @@ const routes = [
     component: Inicio
   },
   {
-    path: '/main',
-    name: 'main',
-    component: () => import('../views/Main.vue'),
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/Home.vue'),
     meta: {
       requiresAuth: true
     }
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('../views/Home.vue')
-  },
-  {
     path: '/insignia',
     name: 'insignia',
-    component: () => import('../views/SalaInsignias.vue')
+    props: true,
+    component: () => import('../views/SalaInsignias.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/login',
@@ -41,7 +40,19 @@ const routes = [
   {
     path: '/notifications',
     name: 'notifications',
-    component: () => import('../views/Notifications.vue')
+    component: () => import('../views/Notifications.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/perfil',
+    name: 'perfil',
+    props: true,
+    component: () => import('../views/Perfil.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/perfil',
@@ -55,7 +66,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-/*
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (localStorage.getItem("jwt") == null) {
@@ -68,6 +79,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-})*/
+})
 
 export default router

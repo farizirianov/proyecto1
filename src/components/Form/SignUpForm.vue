@@ -1,5 +1,5 @@
 <template>
-    <form v-on:submit.prevent ref="form">
+    <form ref="form" :key="keyRender">
         <v-text-field
             v-model="user.firstName"
             :rules="firtNameRules"
@@ -74,6 +74,8 @@ import { mdiEyeOffOutline } from '@mdi/js';
 export default {
     data: () => ({
         showPassword: false,
+        keyRender: 0,
+        list: [],
         user: {
             email: '',
             firstName: '',
@@ -99,14 +101,17 @@ export default {
     methods: {
         async createUser() {
             try {
-                await api.createUser(this.user)
-                this.user = {
+                const newUser = await api.createUser(this.user)
+                this.keyRender += 1
+                this.asignInsig(newUser.data)
+                this.$forceUpdate()
+                /*this.user = {
                     email: '',
                     firstName: '',
                     lastName: '',
                     password: '',
                     confirmPassword: ''
-                }
+                }*/
                 /*if (token) {
                     localStorage.setItem("jwt", token)
                     this.router.push("/main")
@@ -115,6 +120,20 @@ export default {
                 }*/
             } catch (e) {
                 console.log(e)
+            }
+        },
+        async asignInsig(idU) {
+            this.list = await api.getAllInsignias()
+            const list = this.list.data
+            console.log(list.length)
+            try {
+                for (let i = 0; i < list.length; i++) {
+                    const idI = list[i]._id
+                    const group = list[i].group
+                    await api.asignInsignias(idU, idI, group)
+                }
+            } catch (e) {
+                console.log({message: e})
             }
         }
     }
