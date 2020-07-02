@@ -10,19 +10,17 @@
     <v-card v-model="dialog">
       <v-card-title class="headline"></v-card-title>
       <v-card-text>
-        Are you sure you want to delete this comment?
+        ¿Seguro quieres eliminar este comentario?
       </v-card-text>
       <v-card-actions >
         <v-col>
-          <v-btn block color="cyan darken-1" text @click="dialog = false"
-          >
+          <v-btn block color="#039629" text @click="dialog = false" >
             No
           </v-btn>
         </v-col>
         <v-col>
           <v-btn block color="red darken-1" text 
-            v-on:click="deleteComment" 
-            @click="dialog = false">
+            v-on:click="deleteComment" >
             Delete
           </v-btn>
         </v-col>
@@ -45,7 +43,9 @@ export default {
   }),
   methods: {
     async deleteComment() {
-      await api.deleteComment(this.id)
+      await api.deleteComment(this.id).then(() => {
+        this.dialog = false
+      })
     }
   }
 }

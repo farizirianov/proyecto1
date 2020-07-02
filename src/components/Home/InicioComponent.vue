@@ -1,11 +1,8 @@
 <template>
 <v-card
     class="mx-auto"
-<<<<<<< HEAD
-=======
     color="#c6f8d3"
     flat tile
->>>>>>> 07082385c1d2968e45befb60a35eb0a2c9c32b34
   >
     <v-card-text>
       <div class="center">
