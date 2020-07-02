@@ -31,13 +31,14 @@
                 </span>
               </div>
               <div class="text-center">
+                <v-icon>{{svg.calendar}}</v-icon>
                 <span class="span">
-                  {{user.email}}
+                  Se unió {{infoFecha}}
                 </span>
               </div>
               <div class="text-center">
                 <span class="span">
-                  {{user.createAt}}
+                  {{user.email}}
                 </span>
               </div>
               <div class="text-center">
@@ -56,7 +57,7 @@
 
 import api from '../../services/api'
 import EditPerfil from '@/components/Perfil/EditPerfil'
-import { mdiChevronDown, mdiChevronUp } from '@mdi/js'
+import { mdiChevronDown, mdiChevronUp, mdiCalendar } from '@mdi/js'
 
 const reader = new FileReader()
 
@@ -67,8 +68,11 @@ export default {
   },
   data:() => ({
     svg: {
-      down: mdiChevronDown
+      down: mdiChevronDown,
+      calendar: mdiCalendar
     },
+    dias: 0,
+    infoFecha: '',
     user: {},
     expand: false,
     imageReload: ''
@@ -78,12 +82,25 @@ export default {
       const user = await api.getUser(this.idUser)
       this.user = user.data
       this.imageReload = this.user.image
+      this.calFecha(this.user.createAt)
     },
     changeIcon() {
       if(this.svg.down === mdiChevronUp) {
         this.svg.down = mdiChevronDown
       } else if (this.svg.down === mdiChevronDown) {
         this.svg.down = mdiChevronUp
+      }
+    },
+    calFecha(date) {
+      const actual =  new Date()
+      const begin = new Date(date)
+      this.dias = Math.trunc((actual-begin)/(1000*60*60*24))
+      if (this.dias === 0) {
+        this.infoFecha = "hoy"
+      } else if (this.dias === 1) {
+        this.infoFecha = "ayer"
+      } else {
+        this.infoFecha = `hace ${this.dias} días`
       }
     }
   },

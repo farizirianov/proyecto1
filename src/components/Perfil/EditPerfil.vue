@@ -80,14 +80,10 @@
         >
         {{user.description}}
         </v-text-field>
-        <v-text-field
-            v-model="user.sex"
-            label="Sex"
-            required
-            color="#039629"
-        >
-        {{user.sex}}
-        </v-text-field>
+        <v-radio-group v-model="user.sex" :mandatory="false">
+          <v-radio label="Hombre" value="M"></v-radio>
+          <v-radio label="Mujer" value="F"></v-radio>
+        </v-radio-group>
       </form>
       <v-card-actions>
         <v-row justify="space-around" class="pa-2">

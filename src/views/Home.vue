@@ -1,6 +1,6 @@
 <template>
   <v-main class="pa-0">
-    <SearchBar :title="title"></SearchBar>
+    <SearchBar :title="title" :idUser="user._id"></SearchBar>
       <v-list class="pa-0">
         <v-list-item-group v-model="posts" class="background-inicio">
           <v-list-item

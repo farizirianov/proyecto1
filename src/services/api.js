@@ -80,6 +80,12 @@ class api {
     })
   }
 
+  static updateLike(id, sts) {
+    return axios.put(`like/${id}`,{
+      status: sts
+    })
+  }
+
   static deleteLike(id) {
     return axios.delete(`like/${id}`)
   }
