@@ -13,7 +13,16 @@
     </template>
     <v-card>
       <v-card-title class="primario white--text">
-        Crear una publicación
+        <v-row align="center" class="spacer" no-gutters>
+            <v-col>
+              Crear una publicación
+            </v-col>
+            <v-col cols="1">
+              <v-btn text small fab @click.stop="dialog = false" height="24" width="24">
+                <v-icon color="white">{{svg.close}}</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
       </v-card-title>
       <v-divider></v-divider>
       <v-textarea 
@@ -27,9 +36,6 @@
       >
       </v-textarea>
       <v-card-actions>
-        <v-btn text @click="dialog = false">
-          Cerrar
-        </v-btn>
         <v-btn text v-on:click="createPost" @click="dialog = false">
           Publicar
         </v-btn>
@@ -40,14 +46,15 @@
 
 <script>
   import api from '../../services/api'
-  import { mdiPencilRemoveOutline } from '@mdi/js';
+  import { mdiPencilRemoveOutline, mdiCloseThick } from '@mdi/js';
 
   export default {
     props: ['idUser'],
     data: () => ({
       dialog: false,
       svg: {
-          pencil: mdiPencilRemoveOutline
+          pencil: mdiPencilRemoveOutline,
+          close: mdiCloseThick
       },
       post: {}
     }),

@@ -1,16 +1,24 @@
 <template>
     <form ref="form" :key="keyRender">
+        <div class="center">
+          <v-img
+            src="../../assets/grun.png"
+            max-height="228"
+            max-width="187"
+          >
+          </v-img>
+        </div>
         <v-text-field
             v-model="user.firstName"
             :rules="firtNameRules"
-            label="Firstname"
+            label="Nombre"
             required
             color="#039629"
         ></v-text-field>
         <v-text-field
             v-model="user.lastName"
             :rules="lastNameRules"
-            label="Lastname"
+            label="Apellido"
             required
             color="#039629"
         >
@@ -27,8 +35,8 @@
             :append-icon="showPassword ? svg.visibility : svg.visibilityOff"
             :type="showPassword ? 'text' : 'password'"
             name="password"
-            label="Password"
-            hint="At least 6 char acters"
+            label="Contraseña"
+            hint="Mínimo 6 carácteres"
             counter
             @click:append="showPassword = !showPassword"
             color="#039629"
@@ -38,8 +46,8 @@
             :append-icon="showPassword ? svg.visibility : svg.visibilityOff"
             :type="showPassword ? 'text' : 'password'"
             name="confirmPassword"
-            label="Confirm Password"
-            hint="At least 6 char acters"
+            label="Confirmar contraseña"
+            hint="Mínimo 6 carácteres"
             counter
             @click:append="showPassword = !showPassword"
             color="#039629"
@@ -52,11 +60,11 @@
         <!-------------------------  END FORM ERRORS ------------------->
 
         <div class="mt-5">
-            <v-btn v-on:click="createUser" color="#039629" elevation="0" dark>
-                Sign Up
+            <v-btn v-on:click="createUser" class="mr-4" color="#039629" elevation="0" dark>
+               Registrar
             </v-btn>
             <v-btn color="#039629" elevation="0" dark>
-                Clear
+               Limpiar
             </v-btn>
         </div>
     </form>
@@ -84,14 +92,14 @@ export default {
             confirmPassword: ''
         },
         emailRules: [
-            v => !!v || 'E-mail is required',
-            v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+            v => !!v || 'E-mail es requerido',
+            v => /.+@.+\..+/.test(v) || 'E-mail no valido',
         ],
         firtNameRules: [
-            v => !!v || 'First name is required'
+            v => !!v || 'Nombre es requerido'
         ],
         lastNameRules: [
-            v => !!v || 'Last name is required'
+            v => !!v || 'Apellido es requerido'
         ],
         svg: {
             visibility: mdiEyeOutline,

@@ -1,5 +1,13 @@
 <template>
     <form v-on:submit.prevent ref="form">
+      <div class="center">
+          <v-img
+            src="../../assets/grun.png"
+            max-height="228"
+            max-width="187"
+          >
+          </v-img>
+      </div>
         <v-text-field
             v-model="user.email"
             :rules="emailRules"
@@ -12,8 +20,8 @@
             :append-icon="showPassword ? svg.visibility : svg.visibilityOff"
             :type="showPassword ? 'text' : 'password'"
             name="input-10-1"
-            label="Password"
-            hint="At least 6 char acters"
+            label="Contraseña"
+            hint="Mínimo 6 carácteres"
             counter
             @click:append="showPassword = !showPassword"
             color="#039629"
@@ -51,8 +59,8 @@ export default {
             password: ''
         },
         emailRules: [
-            v => !!v || 'E-mail is required',
-            v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+            v => !!v || 'E-mail es requerido',
+            v => /.+@.+\..+/.test(v) || 'E-mail no valido',
         ],
         svg: {
             visibility: mdiEyeOutline,
