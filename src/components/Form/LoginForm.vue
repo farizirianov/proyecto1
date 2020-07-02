@@ -1,5 +1,5 @@
 <template>
-    <form v-on:submit.prevent ref="form">
+    <form v-on:submit.prevent ref="form" class="white">
       <div class="center">
           <v-img
             src="../../assets/grun.png"
@@ -33,7 +33,7 @@
         </div>
         <!-------------------------  END FORM ERRORS ------------------->
 
-        <div class="mt-5">
+        <div class="mt-5 center">
             <v-btn v-on:click="login" class="mr-4" color="#039629" elevation="0" dark>
                 Entrar
             </v-btn>

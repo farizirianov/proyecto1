@@ -1,5 +1,5 @@
 <template>
-    <form ref="form" :key="keyRender">
+    <form ref="form" :key="keyRender" class="white">
         <div class="center">
           <v-img
             src="../../assets/grun.png"
@@ -59,7 +59,7 @@
         </div>
         <!-------------------------  END FORM ERRORS ------------------->
 
-        <div class="mt-5">
+        <div class="mt-5 center">
             <v-btn v-on:click="createUser" class="mr-4" color="#039629" elevation="0" dark>
                Registrar
             </v-btn>
