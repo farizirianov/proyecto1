@@ -15,10 +15,7 @@
       </v-col>
 
       <v-col cols="2">
-        <v-btn elevation="0" small absolute top fab style="transform: translateY(35px)">
-          <v-icon left  color="red">{{svg.edit}}</v-icon>
-        </v-btn>
-        <AppDeleteScream></AppDeleteScream>
+        <PostDelete :id="this.posts._id"></PostDelete>
       </v-col>
     </v-row>
 
@@ -54,20 +51,23 @@
   import api from '../../services/api'
 
   import CommentPanel from '@/components/Comment/CommentPanel.vue'
+  import PostDelete from '@/components/Post/PostDelete.vue'
   import LikeList from '@/components/Like/LikeList.vue'
-  import { mdiCommentMultipleOutline, mdiHeart, mdiFileEdit } from '@mdi/js'
+  import { mdiCommentMultipleOutline, mdiDeleteOutline, mdiHeart, mdiFileEdit } from '@mdi/js'
 
   export default {
     props: ['idUser', 'posts'],
     components: {
       CommentPanel,
+      PostDelete,
       LikeList
     },
     data: () => ({
       svg: {
         heart: mdiHeart,
         comment: mdiCommentMultipleOutline,
-        edit: mdiFileEdit
+        edit: mdiFileEdit,
+        delete: mdiDeleteOutline
       },
       message: {
         avatar: 'Gold.png'

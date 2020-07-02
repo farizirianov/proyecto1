@@ -55,6 +55,10 @@ class api {
   static getAllPost() {
     return axios.get('post/')
   }
+  static deletePost(id) {
+    return axios.delete(`post/${id}`)
+  }
+  
   //----For Comments
   static createComment(data, idU, idP) {
     return axios.post('comment/', {
