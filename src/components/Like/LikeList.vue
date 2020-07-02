@@ -8,11 +8,22 @@
           v-on="on"
           v-on:click="mostrar"
         >
-          Likes
+         Me Gusta
         </v-btn>
       </template>
       <v-card class="rounded-lg">
-        <v-card-title class="primario white--text">Like's List</v-card-title>
+        <v-card-title class="primario white--text">
+          <v-row align="center" class="spacer" no-gutters>
+            <v-col>
+              Lista de Me Gusta
+            </v-col>
+            <v-col cols="1">
+              <v-btn text small fab @click.stop="dialog = false" height="24" width="24">
+                <v-icon color="white">{{svg.close}}</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card-title>
         <v-divider></v-divider>
           <v-list rounded>
             <v-list-item-group v-model="likes">
@@ -32,12 +43,6 @@
               </v-list-item>
             </v-list-item-group>
           </v-list>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-btn text @click="dialog = false">
-            Close
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
 </template>
@@ -45,11 +50,15 @@
 <script>
 
   import api from '../../services/api'
+  import { mdiCloseThick } from '@mdi/js'
 
   export default {
     props: ['id'],
     data: () => ({
       dialog: false,
+      svg: {
+        close: mdiCloseThick
+      },
       like: 1,
       likes: [],
       likeSize: 1

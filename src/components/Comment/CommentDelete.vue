@@ -21,7 +21,7 @@
         <v-col>
           <v-btn block color="red darken-1" text 
             v-on:click="deleteComment" >
-            Delete
+            Borrar
           </v-btn>
         </v-col>
       </v-card-actions>
