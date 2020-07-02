@@ -5,22 +5,28 @@
       dark
       class="primario"
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
+      <InicioPanel :idUser="this.idUser"></InicioPanel>
       <v-toolbar-title>{{this.title}}</v-toolbar-title>
-
       <v-spacer></v-spacer>
 
     </v-app-bar>
 </template>
 
 <script>
+  import InicioPanel from '@/components/Home/InicioPanel'
 
   export default {
-    props: ['title'],
+    props: ['idUser', 'title'],
     components: {
+      InicioPanel
     },
     data: () => ({
-    })
+    }),
+    methods: {
+      logUserOut() {
+        localStorage.removeItem("jwt")
+        this.$router.push("/")
+      }
+    }
   }
 </script>

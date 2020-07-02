@@ -1,6 +1,6 @@
 <template>
   <v-main class="pa-0">
-    <SearchBar :title="title"></SearchBar>
+    <SearchBar :title="title" :idUser="this.idUser"></SearchBar>
       <PerfilComponent :idUser="this.idUser"></PerfilComponent>
     <Navbar></Navbar>
   </v-main>

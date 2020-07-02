@@ -56,6 +56,7 @@
         try {
           if (this.post.content !== '') {
             await api.createPost(this.post, this.idUser)
+            await api.updateListInsignias(this.idUser, 'Post', 1)
           } else {
             console.log('Error')
           }   
