@@ -43,7 +43,7 @@
               </div>
               <div class="text-center">
                 <span class="md">
-                  Description
+                  Descripción
                 </span>
               </div>
             </v-card-text>

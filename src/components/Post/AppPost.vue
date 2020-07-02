@@ -31,6 +31,7 @@
       </v-col>
     </v-row>
     <!-- -->
+    <v-divider></v-divider>
     <v-row>
       <v-col cols="12" md="8" class="relative">
         <v-card-actions>

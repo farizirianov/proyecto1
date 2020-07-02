@@ -3,7 +3,7 @@
       <template v-slot:activator="{ on }">
         <v-btn
           elevation="0" text small absolute right top @click.stop="dialog = true" v-on="on">
-          <v-icon>{{svg.delete}}</v-icon>
+          <v-icon color="red">{{svg.delete}}</v-icon>
         </v-btn>
       </template>
     

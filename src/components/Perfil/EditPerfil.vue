@@ -27,6 +27,7 @@
             filled
             v-model="image"
             accept="image/png, image/jpeg, image/bmp"
+            color="green"
             :prepend-icon="svg.camera"
             @change="mostrarFoto"
           >
@@ -35,7 +36,7 @@
         <v-text-field
             v-model="user.firstName"
             :rules="firtNameRules"
-            label="Firstname"
+            label="Nombre"
             required
             color="#039629"
         >
@@ -44,7 +45,7 @@
         <v-text-field
             v-model="user.lastName"
             :rules="lastNameRules"
-            label="Lastname"
+            label="Apellido"
             required
             color="#039629"
         >
@@ -64,8 +65,8 @@
             :append-icon="showPassword ? svg.visibility : svg.visibilityOff"
             :type="showPassword ? 'text' : 'password'"
             name="password"
-            label="Password"
-            hint="At least 6 char acters"
+            label="Contraseña"
+            hint="Mínimo 6 carácteres"
             counter
             @click:append="showPassword = !showPassword"
             color="#039629"
@@ -74,15 +75,15 @@
         </v-text-field>
         <v-text-field
             v-model="user.description"
-            label="Description"
+            label="Descripción"
             required
             color="#039629"
         >
         {{user.description}}
         </v-text-field>
         <v-radio-group v-model="user.sex" :mandatory="false">
-          <v-radio label="Hombre" value="M"></v-radio>
-          <v-radio label="Mujer" value="F"></v-radio>
+          <v-radio label="Femenino" value="F"></v-radio>
+          <v-radio label="Masculino" value="M"></v-radio>
         </v-radio-group>
       </form>
       <v-card-actions>
@@ -129,14 +130,14 @@ export default {
     imageReload: '',
     dialog: false,
     emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      v => !!v || 'E-mail es requerido',
+      v => /.+@.+\..+/.test(v) || 'E-mail no es valido',
     ],
     firtNameRules: [
-      v => !!v || 'First name is required'
+      v => !!v || 'Nombre es requerido'
     ],
     lastNameRules: [
-      v => !!v || 'Last name is required'
+      v => !!v || 'Apellido es requerido'
     ]
   }),
   methods:{
