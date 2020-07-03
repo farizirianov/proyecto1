@@ -28,7 +28,7 @@
 
       <v-divider></v-divider>
 
-      <v-list-item>
+      <v-list-item @click="logUserOut">
         <v-list-item-icon>
           <v-icon>{{ svg.logout }}</v-icon>
         </v-list-item-icon>
@@ -61,7 +61,11 @@
       async getUser() {
         const dataUser = await api.getUser(this.idUser)
         this.user = dataUser.data
-      }
+      },
+      logUserOut() {
+      localStorage.removeItem("jwt")
+      this.$router.push("/")
+    }
     },
     created() {
       this.getUser()
