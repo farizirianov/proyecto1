@@ -19,13 +19,13 @@
       <div class="center">¿No tienes Cuenta?</div>
       <v-card-text class="text--primary center">
         <v-btn to="/signup" color="#039629" elevation="0" class="mt-3" dark>
-            Sign Up
+            Registrar
         </v-btn>
       </v-card-text>
       <div class="center">¿Ya tienes Cuenta?</div>
       <v-card-text class="text--primary center">
         <v-btn to="/login" color="#039629" elevation="0" class="mt-3" dark>
-          Sign In
+          Iniciar
         </v-btn>
       </v-card-text>
     </v-card-text>

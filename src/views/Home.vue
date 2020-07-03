@@ -24,17 +24,13 @@ import VueJwtDecode from "vue-jwt-decode"
 // COMPONENTS
 import AppPost from '@/components/Post/AppPost.vue'
 import PostCard from '@/components/Post/PostCard.vue'
-import AppScreamCard from '@/components/Home/AppScreamCard.vue'
-import AppPostScream from '@/components/Post/AppPostScream'
 import SearchBar from '@/components/Layout/SearchBar'
 import Navbar from '../components/Layout/NavBar'
 
 export default {
   name: 'Home',
   components: {
-    AppScreamCard,
     AppPost,
-    AppPostScream,
     PostCard,
     Navbar,
     SearchBar

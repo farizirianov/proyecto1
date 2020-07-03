@@ -6,11 +6,10 @@
           <v-icon color="red">{{svg.delete}}</v-icon>
         </v-btn>
       </template>
-    
     <v-card v-model="dialog">
       <v-card-title class="headline"></v-card-title>
       <v-card-text>
-        ¿Seguro quieres eliminar este comentario?
+        ¿Seguro quieres eliminar este publicación?
       </v-card-text>
       <v-card-actions >
         <v-col>
@@ -20,7 +19,7 @@
         </v-col>
         <v-col>
           <v-btn block color="red darken-1" text 
-            v-on:click="deleteComment" >
+            v-on:click="deletePost" >
             Borrar
           </v-btn>
         </v-col>
@@ -42,8 +41,8 @@ export default {
     dialog: false
   }),
   methods: {
-    async deleteComment() {
-      await api.deleteComment(this.id).then(() => {
+    async deletePost() {
+      await api.deletePost(this.id).then(() => {
         this.dialog = false
       })
     }

@@ -30,7 +30,7 @@
 
       <v-list-item @click="logUserOut">
         <v-list-item-icon>
-          <v-icon>{{ svg.logout }}</v-icon>
+          <v-icon color="red">{{ svg.logout }}</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>

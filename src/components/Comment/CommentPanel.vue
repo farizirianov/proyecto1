@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on }">
         <v-btn text small v-on="on" @click.stop="dialog = true" >
           <v-icon left>{{svg.comment}}</v-icon>
-          Comments
+          Comentarios
         </v-btn>
       </template>
 
@@ -12,7 +12,7 @@
         <v-card-title class="primario white--text pa-3">
           <v-row align="center" class="spacer" no-gutters>
             <v-col>
-              Comments
+              Comentario
             </v-col>
             <v-col cols="1">
               <v-btn text small fab @click.stop="dialog = false" height="24" width="24">
@@ -35,7 +35,7 @@
           >
           </v-textarea>
           <v-btn text class="primario white--text" v-on:click="createComment">
-            Send
+            Comentar
           </v-btn>
         </v-card-actions>
       </v-card>
