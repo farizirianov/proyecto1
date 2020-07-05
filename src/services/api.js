@@ -58,6 +58,16 @@ class api {
   static deletePost(id) {
     return axios.delete(`post/${id}`)
   }
+  //----For Notifiactions
+
+  static createNotification(data, idU, msg) {
+    return axios.post('notification/', {
+      idUser:  idU,
+      group: data,
+      message: msg
+
+    })
+  }
   
   //----For Comments
   static createComment(data, idU, idP) {

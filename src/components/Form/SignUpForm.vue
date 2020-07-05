@@ -63,7 +63,7 @@
             <v-btn v-on:click="createUser" class="mr-4" color="#039629" elevation="0" dark>
                Registrar
             </v-btn>
-            <v-btn color="#039629" elevation="0" dark>
+            <v-btn v-on:click="reset" color="#039629" elevation="0" dark>
                Limpiar
             </v-btn>
         </div>
@@ -143,7 +143,14 @@ export default {
             } catch (e) {
                 console.log({message: e})
             }
-        }
+        },
+        async reset() {
+                this.user.email = '';
+                this.user.firstName = '';
+                this.user.lastName = '';
+                this.user.password = '';
+                this.user.confirmPassword = '';
+            }
     }
 }
 </script>

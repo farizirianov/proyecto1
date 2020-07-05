@@ -37,7 +37,7 @@
             <v-btn v-on:click="login" class="mr-4" color="#039629" elevation="0" dark>
                 Entrar
             </v-btn>
-            <v-btn color="#039629" elevation="0" dark>
+            <v-btn v-on:click="reset" color="#039629" elevation="0" dark>
                 Limpiar
             </v-btn>
         </div>
@@ -76,7 +76,11 @@ export default {
             } catch (e) {
                 console.log(e)
             }
-        }
+        },
+        async reset() {
+                this.user.email = '';
+                this.user.password = '';
+            }
     }
 }
 </script>

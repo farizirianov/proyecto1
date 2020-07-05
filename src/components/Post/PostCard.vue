@@ -36,7 +36,7 @@
       >
       </v-textarea>
       <v-card-actions>
-        <v-btn text v-on:click="createPost" @click="dialog = false">
+        <v-btn text class="primario white--text" v-on:click="createPost" @click="dialog = false">
           Publicar
         </v-btn>
       </v-card-actions>
