@@ -5,7 +5,7 @@
             <v-avatar size="180">
               <v-img class="card-img" :src="imageReload"></v-img>
             </v-avatar>
-            <EditPerfil :idUser="this.idUser"></EditPerfil>
+            <EditPerfil></EditPerfil>
         </v-col>
         <v-col offset="1" class="center relative ma-0 pa-0">
             <v-card-title>
@@ -59,10 +59,11 @@ import api from '../../services/api'
 import EditPerfil from '@/components/Perfil/EditPerfil'
 import { mdiChevronDown, mdiChevronUp, mdiCalendar } from '@mdi/js'
 
+import {mapGetters} from 'vuex'
+
 const reader = new FileReader()
 
 export default {
-  props: ['idUser'],
   components: {
     EditPerfil
   },
@@ -79,8 +80,7 @@ export default {
   }),
   methods: {
     async loadUser() {
-      const user = await api.getUser(this.idUser)
-      this.user = user.data
+      this.user = this.getUser
       this.imageReload = this.user.image
       this.calFecha(this.user.createAt)
     },
@@ -103,6 +103,9 @@ export default {
         this.infoFecha = `hace ${this.dias} días`
       }
     }
+  },
+  computed: {
+    ...mapGetters(['getUser'])
   },
   created() {
     this.loadUser()

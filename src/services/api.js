@@ -52,6 +52,9 @@ class api {
   static getPostById(id) {
     return axios.get(`post/${id}`)
   }
+  static getAllPostById(id) {
+    return axios.get(`post/user/${id}`)
+  }
   static getAllPost() {
     return axios.get('post/')
   }

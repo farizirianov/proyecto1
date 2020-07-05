@@ -25,7 +25,6 @@
           </v-avatar>
           <v-file-input
             filled
-            v-model="image"
             accept="image/png, image/jpeg, image/bmp"
             color="green"
             :prepend-icon="svg.camera"
@@ -104,11 +103,11 @@
 
 import { mdiAccountCog, mdiEyeOutline, mdiEyeOffOutline, mdiCamera } from '@mdi/js'
 import api from '../../services/api'
+import { mapGetters, mapActions } from 'vuex'
 
 const reader = new FileReader()
 
 export default {
-  props: ['idUser'],
   data: () => ({
     svg: {
       setting: mdiAccountCog,
@@ -119,13 +118,6 @@ export default {
     keyRender: 0,
     showPassword: false,
     user: {
-      firtName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      sex: '',
-      image: '',
-      description: ''
     },
     imageReload: '',
     dialog: false,
@@ -145,6 +137,7 @@ export default {
       this.user.image = this.imageReload
       try {
         await api.updateUser(this.idUser, this.user)
+        this.$store.dispatch('updateDataUser', this.user)
       } catch (e) {
         console.log({message: e})
       }
@@ -159,10 +152,12 @@ export default {
       this.keyRender += 1
     },
     async loadUser() {
-      const user = await api.getUser(this.idUser)
-      this.user = user.data
+      this.user = this.getUser
       this.imageReload = this.user.image
     }
+  },
+  computed: {
+    ...mapGetters(['getUser'])
   },
   created() {
     this.loadUser()

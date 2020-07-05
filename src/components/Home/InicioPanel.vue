@@ -48,7 +48,6 @@
   import {mdiLogout} from '@mdi/js'
 
   export default {
-    props: ['idUser'],
     data: () => ({
       miniVariant: false,
       dialog: false,
@@ -58,17 +57,13 @@
       }
     }),
     methods: {
-      async getUser() {
-        const dataUser = await api.getUser(this.idUser)
-        this.user = dataUser.data
-      },
       logUserOut() {
       localStorage.removeItem("jwt")
       this.$router.push("/")
     }
     },
     created() {
-      this.getUser()
+      this.user = this.$store.getters.getUser
     }
   }
 </script>

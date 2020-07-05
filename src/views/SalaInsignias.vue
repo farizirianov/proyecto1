@@ -55,7 +55,6 @@
   import SearchBar from '@/components/Layout/SearchBar'
 
   export default {
-    props: ['idUser'],
     components: {
       Navbar,
       SearchBar

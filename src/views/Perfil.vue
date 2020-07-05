@@ -1,7 +1,7 @@
 <template>
   <v-main class="pa-0">
-    <SearchBar :title="title" :idUser="this.idUser"></SearchBar>
-      <PerfilComponent :idUser="this.idUser"></PerfilComponent>
+    <SearchBar :title="title"></SearchBar>
+      <PerfilComponent></PerfilComponent>
     <Navbar></Navbar>
   </v-main>
 </template>
@@ -12,7 +12,6 @@ import SearchBar from '@/components/Layout/SearchBar'
 import Navbar from '../components/Layout/NavBar'
 
 export default {
-  props: ['idUser'],
   components: {
     Navbar,
     SearchBar,

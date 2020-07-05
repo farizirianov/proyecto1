@@ -5,7 +5,7 @@
       dark
       class="primario"
     >
-      <InicioPanel :idUser="this.idUser"></InicioPanel>
+      <InicioPanel></InicioPanel>
       <v-toolbar-title>{{this.title}}</v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -16,7 +16,7 @@
   import InicioPanel from '@/components/Home/InicioPanel'
 
   export default {
-    props: ['idUser', 'title'],
+    props: ['title'],
     components: {
       InicioPanel
     },

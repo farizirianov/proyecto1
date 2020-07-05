@@ -46,6 +46,7 @@
 <script>
 import api from '../../services/api'
 import router from '../../router/index'
+import VueJwtDecode from "vue-jwt-decode"
 // MIXINS
 // SVG ICONS
 import { mdiEyeOutline, mdiEyeOffOutline  } from '@mdi/js';
@@ -71,11 +72,18 @@ export default {
         async login() {
             try {
                 const muser = await api.loginUser(this.user)
+                console.log("Conexion establecida")
                 localStorage.setItem("jwt", muser.data)
+                this.saveData(VueJwtDecode.decode(muser.data))
                 router.push({name: 'home'})
             } catch (e) {
                 console.log(e)
             }
+        },
+        saveData(dataUser) {
+            this.$store.dispatch('addDataUser', dataUser)
+            //this.$store.dispatch('addDataPosts', dataPost)
+            //this.$store.dispatch('addDataPostsUser', postsUs)
         }
     }
 }
