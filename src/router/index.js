@@ -53,11 +53,6 @@ const routes = [
     meta: {
       requiresAuth: true
     }
-  },
-  {
-    path: '/perfil',
-    name: 'perfil',
-    component: () => import('../views/Perfil.vue')
   }
 ]
 

@@ -56,8 +56,9 @@
   import LikeList from '@/components/Like/LikeList.vue'
   import { mdiCommentMultipleOutline, mdiDeleteOutline, mdiHeart, mdiFileEdit } from '@mdi/js'
 
+  import { mapGetters } from 'vuex'
   export default {
-    props: ['idUser', 'posts'],
+    props: ['posts'],
     components: {
       CommentPanel,
       PostDelete,
@@ -76,14 +77,17 @@
       sizeAvatar: 50,
       color: "grey"
     }),
+    computed: {
+      ...mapGetters(['getUser'])
+    },
     methods: {
       async like() {
-        const like = await api.getUserLike(this.idUser, this.posts._id)
+        const like = await api.getUserLike(getUser._id, this.posts._id)
         const likeagg = like.data
         if(this.color === "grey") {
           if(!likeagg) {
             this.color = "red"
-            await api.createLike(this.idUser, this.posts._id)
+            await api.createLike(getUser._id, this.posts._id)
             await api.updateListInsignias(this.idUser, 'Like', 1)
           } else if (likeagg && likeagg.status === 'I') {
             this.color = "red"
@@ -96,7 +100,7 @@
         this.$forceUpdate()
       },
       async validateLike() {
-        const like = await api.getUserLike(this.idUser, this.posts._id)
+        const like = await api.getUserLike(getUser._id, this.posts._id)
         if (like.data !== null) {
           this.color = "red"
         } else {

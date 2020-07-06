@@ -8,7 +8,7 @@
           v-on="on"
           v-on:click="mostrar"
         >
-         Me Gusta
+         {{likeSize}} Me Gusta
         </v-btn>
       </template>
       <v-card class="rounded-lg">
