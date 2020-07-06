@@ -40,7 +40,7 @@
           </v-btn>
           <LikeList :id="this.posts._id">
           </LikeList>
-          <CommentPanel :idUser="this.idUser" :idPost="this.posts._id"></CommentPanel>
+          <CommentPanel :idPost="this.posts._id"></CommentPanel>
         </v-card-actions>
       </v-col>
     </v-row>
@@ -57,14 +57,16 @@
   import { mdiCommentMultipleOutline, mdiDeleteOutline, mdiHeart, mdiFileEdit } from '@mdi/js'
 
   import { mapGetters } from 'vuex'
+
   export default {
-    props: ['posts'],
+    props: ['posts', 'pos'],
     components: {
       CommentPanel,
       PostDelete,
       LikeList
     },
     data: () => ({
+      idUser: '',
       svg: {
         heart: mdiHeart,
         comment: mdiCommentMultipleOutline,
@@ -75,40 +77,48 @@
         avatar: 'Gold.png'
       },
       sizeAvatar: 50,
-      color: "grey"
+      color: "grey",
+      post: {}
     }),
     computed: {
       ...mapGetters(['getUser'])
     },
     methods: {
       async like() {
-        const like = await api.getUserLike(getUser._id, this.posts._id)
+        const like = await api.getUserLike(this.idUser, this.posts._id)
         const likeagg = like.data
         if(this.color === "grey") {
           if(!likeagg) {
             this.color = "red"
-            await api.createLike(getUser._id, this.posts._id)
+            await api.createLike(this.idUser, this.posts._id)
             await api.updateListInsignias(this.idUser, 'Like', 1)
           } else if (likeagg && likeagg.status === 'I') {
             this.color = "red"
-            await api.updateLike(likeagg.data._id, 'A')
+            await api.updateLike(likeagg._id, 'A')
           }
         } else if (this.color === "red" && likeagg.status === 'A') {
           this.color = "grey"
           await api.updateLike(likeagg.data._id, 'I')
         }
-        this.$forceUpdate()
       },
       async validateLike() {
-        const like = await api.getUserLike(getUser._id, this.posts._id)
+        const like = await api.getUserLike(this.idUser, this.posts._id)
         if (like.data !== null) {
-          this.color = "red"
+          if (like.data.status === 'A') {
+            this.color = "red"
+          } else if (like.data.status === 'I') {
+            this.color = "grey" 
+          }
         } else {
-          this.color = "grey" 
+          this.color = "grey"
         }
+      },
+      addUser() {
+        this.idUser = this.getUser._id
       }
     },
     created() {
+      this.addUser()
       this.validateLike()
     }
   }

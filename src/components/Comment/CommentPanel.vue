@@ -4,11 +4,11 @@
       <template v-slot:activator="{ on }">
         <v-btn text small v-on="on" @click.stop="dialog = true" >
           <v-icon left>{{svg.comment}}</v-icon>
-          Comentarios
+          {{commentSize}} Comentarios
         </v-btn>
       </template>
 
-      <v-card class="rounded" :key="keyRender">
+      <v-card class="rounded">
         <v-card-title class="primario white--text pa-3">
           <v-row align="center" class="spacer" no-gutters>
             <v-col>
@@ -47,20 +47,25 @@
   import api from '../../services/api'
   import CommentApp from '@/components/Comment/CommentApp.vue'
   import { mdiComment, mdiCloseThick } from '@mdi/js'
+  import { mapGetters } from 'vuex'
   export default {
-    props: ['idUser', 'idPost'],
+    props: ['idPost'],
     components: {
       CommentApp
     },
     data: () => ({
+      idUser: '',
+      commentSize: 0,
       dialog: false,
       svg: {
         comment: mdiComment,
         close: mdiCloseThick
       },
       comment: {},
-      keyRender: 0
     }),
+    computed: {
+      ...mapGetters(['getUser'])
+    },
     methods: {
       async createComment() {
         try {
@@ -71,15 +76,17 @@
             this.comment = {
               content: ''
             }
-            this.renderPage()
           }
         } catch (e) {
           console.log(e)
         }
       },
-      renderPage() {
-        this.keyRender += 1
+      addUser() {
+        this.idUser = this.getUser._id
       }
+    },
+    created() {
+      this.addUser()
     }
   }
 </script>

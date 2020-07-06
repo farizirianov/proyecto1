@@ -1,6 +1,9 @@
 <template>
   <v-main class="pa-0">
     <SearchBar :title="title"></SearchBar>
+      <v-btn @click="verDatos">
+        A
+      </v-btn>
       <v-list class="pa-0">
         <v-list-item-group v-model="getAllPost" class="background-inicio">
           <v-list-item
@@ -9,7 +12,7 @@
             link
           >
             <v-list-item-content>
-              <AppPost :posts="post"></AppPost>
+              <AppPost :posts="post" :pos="i"></AppPost>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -23,7 +26,6 @@ import api from '../services/api'
 import VueJwtDecode from "vue-jwt-decode"
 // COMPONENTS
 import AppPost from '@/components/Post/AppPost.vue'
-import PostCard from '@/components/Post/PostCard.vue'
 import SearchBar from '@/components/Layout/SearchBar'
 import Navbar from '../components/Layout/NavBar'
 
@@ -33,24 +35,29 @@ export default {
   name: 'Home',
   components: {
     AppPost,
-    PostCard,
     Navbar,
     SearchBar
   },
   data: () =>({
     title: 'Inicio',
     post: 1,
-    posts: []
+    posts: [],
+    list: []
   }),
   computed: {
     ...mapGetters(['getAllPost'])
   },
   methods: {
-
+    addPosts() {
+      this.posts = this.getAllPost
+    },
+    verDatos() {
+      this.list = this.$store.getters.getListLike
+      console.log(this.list)
+    }
   },
   created() {
-    this.posts = this.getAllPost
-    console.log(this.getAllPost)
+    this.addPosts()
   }
 }
 </script>
