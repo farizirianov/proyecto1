@@ -8,7 +8,7 @@
           v-on="on"
           v-on:click="mostrar"
         >
-         Me Gusta
+         {{likeSize}} Me Gusta
         </v-btn>
       </template>
       <v-card class="rounded-lg">
@@ -61,18 +61,28 @@
       },
       like: 1,
       likes: [],
-      likeSize: 1
+      likeSize: 0
+      
     }),
     methods: {
       async mostrar() {
         try {
-          const like = await api.getAllLikeByPost(this.id)          
-          this.likes = like.data
-          this.likeSize = like.data.length
+          const like = await api.getAllLikeByPost(this.id)
+          const list = like.data
+          for (let i = 0; i < list.length; i++) {
+            if (list[i].status === 'A') {
+              console.log(like[i])
+              this.likes.push(list[i])
+              this.likeSize += 1
+            }
+          }
         } catch (e) {
            console.log(e)
         }
       }
+    },
+    created() {
+      this.mostrar()
     }
   }
 </script>

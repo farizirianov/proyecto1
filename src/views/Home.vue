@@ -1,20 +1,23 @@
 <template>
   <v-main class="pa-0">
-    <SearchBar :title="title" :idUser="user._id"></SearchBar>
+    <SearchBar :title="title"></SearchBar>
+      <v-btn @click="verDatos">
+        A
+      </v-btn>
       <v-list class="pa-0">
-        <v-list-item-group v-model="posts" class="background-inicio">
+        <v-list-item-group v-model="getAllPost" class="background-inicio">
           <v-list-item
-            v-for="(post, i) in posts"
+            v-for="(post, i) in posts.slice().reverse()"
             :key="i"
             link
           >
             <v-list-item-content>
-              <AppPost :idUser="user._id" :posts="post"></AppPost>
+              <AppPost :posts="post" :pos="i"></AppPost>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
       </v-list>
-    <Navbar :idUser="user._id"></Navbar>
+    <Navbar></Navbar>
   </v-main>
 </template>
 
@@ -23,46 +26,38 @@ import api from '../services/api'
 import VueJwtDecode from "vue-jwt-decode"
 // COMPONENTS
 import AppPost from '@/components/Post/AppPost.vue'
-import PostCard from '@/components/Post/PostCard.vue'
 import SearchBar from '@/components/Layout/SearchBar'
 import Navbar from '../components/Layout/NavBar'
+
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'Home',
   components: {
     AppPost,
-    PostCard,
     Navbar,
     SearchBar
   },
   data: () =>({
     title: 'Inicio',
-    user: {},
     post: 1,
-    posts: []
+    posts: [],
+    list: []
   }),
+  computed: {
+    ...mapGetters(['getAllPost'])
+  },
   methods: {
-    getUserDetails() {
-      try {
-        const token = localStorage.getItem("jwt")
-        let decoded = VueJwtDecode.decode(token)
-        this.user = decoded  
-      } catch (e) {
-        console.log({message: e})        
-      }
+    addPosts() {
+      this.posts = this.getAllPost
     },
-    async getAllPost() {
-      try {
-        const post = await api.getAllPost()
-        this.posts = post.data
-      } catch (e) {
-        console.log(e)
-      }
+    verDatos() {
+      this.list = this.$store.getters.getListLike
+      console.log(this.list)
     }
   },
   created() {
-    this.getUserDetails()
-    this.getAllPost()
+    this.addPosts()
   }
 }
 </script>
