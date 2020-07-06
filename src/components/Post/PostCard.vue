@@ -36,7 +36,7 @@
       >
       </v-textarea>
       <v-card-actions>
-        <v-btn text v-on:click="createPost" @click="dialog = false">
+        <v-btn text v-on:click="createPost" @click.stop="dialog = false">
           Publicar
         </v-btn>
       </v-card-actions>
@@ -48,9 +48,11 @@
   import api from '../../services/api'
   import { mdiPencilRemoveOutline, mdiCloseThick } from '@mdi/js';
 
+  import { mapGetters } from 'vuex'
+
   export default {
-    props: ['idUser'],
     data: () => ({
+      idUser: '',
       dialog: false,
       svg: {
           pencil: mdiPencilRemoveOutline,
@@ -58,19 +60,28 @@
       },
       post: {}
     }),
+    computed: {
+      ...mapGetters(['getUser'])
+    },
     methods: {
+      addUser() {
+        this.idUser = this.getUser
+      },
       async createPost() {
         try {
-          if (this.post.content !== '') {
-            await api.createPost(this.post, this.idUser)
-            await api.updateListInsignias(this.idUser, 'Post', 1)
-          } else {
-            console.log('Error')
-          }   
+          const post = await api.createPost(this.post, this.idUser)
+          await api.updateListInsignias(this.idUser, 'Post', 1)
+          const posts = await api.getPostById(post.data._id)
+          this.$store.dispatch('updatePosts', posts.data)
+          console.log("Post creado")
+          this.dialog = false
         } catch (e) {
           console.log(e)
         }
       }
+    },
+    created() {
+      this.addUser()
     }
   }
 </script>

@@ -72,17 +72,18 @@ export default {
         async login() {
             try {
                 const muser = await api.loginUser(this.user)
-                console.log("Conexion establecida")
+                const posts = await api.getAllPost()
                 localStorage.setItem("jwt", muser.data)
-                this.saveData(VueJwtDecode.decode(muser.data))
+                this.saveData(VueJwtDecode.decode(muser.data), posts.data)
+                console.log("Conexion establecida")
                 router.push({name: 'home'})
             } catch (e) {
                 console.log(e)
             }
         },
-        saveData(dataUser) {
+        saveData(dataUser, dataPost) {
             this.$store.dispatch('addDataUser', dataUser)
-            //this.$store.dispatch('addDataPosts', dataPost)
+            this.$store.dispatch('addDataPosts', dataPost)
             //this.$store.dispatch('addDataPostsUser', postsUs)
         }
     }
