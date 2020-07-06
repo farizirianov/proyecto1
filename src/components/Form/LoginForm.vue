@@ -85,7 +85,7 @@ export default {
                 this.user.email = '';
                 this.user.password = '';
             },
-        saveData(dataUser) {
+        saveData(dataUser, dataPost) {
             this.$store.dispatch('addDataUser', dataUser)
             this.$store.dispatch('addDataPosts', dataPost)
             //this.$store.dispatch('addDataPostsUser', postsUs)
