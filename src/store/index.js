@@ -8,7 +8,13 @@ export default new Vuex.Store({
     user: {},
     listPost: [],
     postByUser: [],
-    listLike: []
+    listLike: [
+      {
+        id: '',
+        likes: [],
+        size: 0
+      }
+    ]
   },
   mutations: {
     //===================================== For user
@@ -23,14 +29,18 @@ export default new Vuex.Store({
       state.listPost = value
     },
     UPDATE_POSTS(state, value) {
-      state.listPost = value
+      state.listPost.push(value)
     },
     SAVE_POST_USER(state, value) {
       state.postByUser = value
     },
     //===================================== For like
     ADD_LIKE(state, value) {
-      state.listLike.push(value)
+      state.listLike.push({
+        id: value.id,
+        likes: value.likes,
+        size: value.size
+      })
     }
   },
   actions: {

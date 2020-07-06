@@ -78,7 +78,8 @@
       },
       sizeAvatar: 50,
       color: "grey",
-      post: {}
+      post: {},
+      val: true
     }),
     computed: {
       ...mapGetters(['getUser'])
@@ -115,9 +116,26 @@
       },
       addUser() {
         this.idUser = this.getUser._id
+      },
+      async cargarLikes() {
+        if(this.val) {
+          const like = await api.getAllLikeByPost(this.posts._id)
+          const list = like.data
+          const data = {
+            id: this.posts._id,
+            likes: list,
+            size: list.length
+          }
+          this.$store.dispatch('aggDataListUser', data)
+          const s = this.$store.getters.getListLike
+          console.log("No distingo")
+          console.log(s)
+        }
+        this.val = false
       }
     },
     created() {
+      this.cargarLikes()
       this.addUser()
       this.validateLike()
     }
