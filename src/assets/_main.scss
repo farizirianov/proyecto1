@@ -1,0 +1,74 @@
+//###################################################################
+//                             BASE
+//###################################################################
+* {
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+
+
+
+//###################################################################
+//                             CLASSES
+//###################################################################
+.relative {
+    position: relative
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hover {
+    cursor: pointer;
+}
+.init {
+    align-items: center;
+    justify-content: center
+}
+
+.list {
+    height:200px;
+    overflow-y:auto
+}
+.span {
+    font-size: medium;
+}
+
+
+//###################################################################
+//                             COLORS
+//###################################################################
+
+.primario {
+    background:  #039629 !important;
+}
+.secundario {
+    background: #723881 !important;
+}
+.background {
+    background: #d2fafb;
+}
+.quinto {
+    background: #B9F6CA;
+}
+.sexto {
+    background: #E8F5E9;
+}
+.gray {
+    background: #d6dfe2 !important;
+}
+.sexto {
+    background: #B9F6CA;
+}
+.text-secundario {
+    color: #191C1E;
+}
+.background-secundario {
+    background: #191C1E;
+}
+.background-inicio {
+    background: #c6f8d3  ;
+}

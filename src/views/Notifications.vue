@@ -1,0 +1,69 @@
+<template>
+    <v-main>
+        <SearchBar :title="title"></SearchBar>
+    <v-container>
+        <v-row>
+            <v-col cols="12" offset-sm="3" sm="6">
+                <template>
+                <v-card class="mx-auto" max-width="300" tile >
+                    <v-subheader>NOTIFICATIONS</v-subheader>
+                    <!--------------------- NOTIFICATION LIST --------------------->
+                    <v-list>
+                        <v-list-item>
+                            There aren't any new notifications
+                        </v-list-item>
+
+                    </v-list>
+                    <v-list rounded>
+                        <!------------------- NOTIFICATION ITEM ------------------>
+                        <NotificationItem class="notification"></NotificationItem>
+                        <!------------------- END NOTIFICATION ITEM ------------------>
+                    </v-list>
+                    <!--------------------- END NOTIFICATION LIST --------------------->
+                </v-card>
+                </template>
+            </v-col>
+        </v-row>        
+    </v-container>
+    <Navbar></Navbar>
+    </v-main>
+</template>
+
+<script>
+// COMPONENTS
+import Navbar from '@/components/Layout/NavBar'
+import SearchBar from '@/components/Layout/SearchBar'
+import NotificationItem from '@/components/Notifications/NotificationItem.vue';
+
+// VUEX
+import { mapGetters } from 'vuex';
+export default {
+    components: {
+        NotificationItem,
+        Navbar,
+        SearchBar
+    },
+    data: () => ({
+        title: 'Notificaciones',
+        item: 1,
+        items: [
+            { text: 'Real-Time', icon: 'mdi-clock' },
+            { text: 'Audience', icon: 'mdi-account' },
+            { text: 'Conversions', icon: 'mdi-flag' },
+        ],
+    })
+    }
+</script>
+
+<style>
+.badge-notification {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: red;
+  position: absolute;
+  top: 1px;
+  right: 5px;
+}
+</style>
+
