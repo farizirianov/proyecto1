@@ -90,16 +90,19 @@
         const likeagg = like.data
         if(this.color === "grey") {
           if(!likeagg) {
-            this.color = "red"
+            
             await api.createLike(this.idUser, this.posts._id)
             await api.updateListInsignias(this.idUser, 'Like', 1)
-          } else if (likeagg && likeagg.status === 'I') {
             this.color = "red"
+          } else if (likeagg && likeagg.status === 'I') {
+            
             await api.updateLike(likeagg._id, 'A')
+            this.color = "red"
           }
         } else if (this.color === "red" && likeagg.status === 'A') {
-          this.color = "grey"
+          
           await api.updateLike(likeagg.data._id, 'I')
+          this.color = "grey"
         }
       },
       async validateLike() {
@@ -135,7 +138,7 @@
       }
     },
     created() {
-      this.cargarLikes()
+      //this.cargarLikes()
       this.addUser()
       this.validateLike()
     }

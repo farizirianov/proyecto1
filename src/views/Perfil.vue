@@ -42,17 +42,15 @@ export default {
     posts: []
   }),
   computed: {
-    ...mapGetters(['getUser'])
+    ...mapGetters(['getUser', 'getAllPostUser'])
   },
   methods: {
     aggUser() {
       this.idUser = this.getUser._id
     },
     async getPosts() {
-      console.log(this.idUser)
-      const posts = await api.getAllPostById(this.idUser)
-      console.log(posts)
-      this.posts = posts.data
+      await this.$store.dispatch('fetchPostsByUser')
+      this.posts = this.getAllPostUser
     }
   },
   created() {

@@ -1,11 +1,8 @@
 <template>
   <v-main class="pa-0">
     <SearchBar :title="title"></SearchBar>
-      <v-btn @click="verDatos">
-        A
-      </v-btn>
       <v-list class="pa-0">
-        <v-list-item-group v-model="getAllPost" class="background-inicio">
+        <v-list-item-group v-model="posts" class="background-inicio">
           <v-list-item
             v-for="(post, i) in posts.slice().reverse()"
             :key="i"
@@ -45,15 +42,13 @@ export default {
     list: []
   }),
   computed: {
-    ...mapGetters(['getAllPost'])
+    ...mapGetters(['getAllPost']) // <---- Here
   },
   methods: {
-    addPosts() {
-      this.posts = this.getAllPost
-    },
-    verDatos() {
-      this.list = this.$store.getters.getListLike
-      console.log(this.list)
+    async addPosts() {
+      //const posts = await api.getAllPost()
+      await this.$store.dispatch('fetchPosts')
+      this.posts = this.getAllPost // <---- Here
     }
   },
   created() {

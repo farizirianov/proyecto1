@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import api from '../services/api'
 
 Vue.use(Vuex)
 
@@ -8,6 +9,7 @@ export default new Vuex.Store({
     user: {},
     listPost: [],
     postByUser: [],
+    likes: {},
     listLike: [
       {
         id: '',
@@ -35,6 +37,9 @@ export default new Vuex.Store({
       state.postByUser = value
     },
     //===================================== For like
+    SAVA_lIKES(state, value) {
+      state.likes = value
+    },
     ADD_LIKE(state, value) {
       state.listLike.push({
         id: value.id,
@@ -52,18 +57,33 @@ export default new Vuex.Store({
       commit('UPDATE_USER', value)
     },
     //===================================== For post
-    addDataPosts({state, commit}, value) {
-      commit('SAVE_POST', value)
+    async fetchPosts({commit}) {
+      const post = await api.getAllPost()
+      try {
+        commit('SAVE_POST', post.data)
+      } catch (e) {
+        console.log({message: e})
+      }
+    },
+    async fetchPostsByUser({state, commit}) {
+      try {
+        const post = await api.getAllPostById(state.user._id)
+        commit('SAVE_POST_USER', post.data)
+      } catch (e) {
+        console.log({message: e})
+      }
     },
     updatePosts({state, commit}, value) {
       commit('UPDATE_POSTS', value)
     },
-    addDataPostsUser({state, commit}, value) {
-      commit('SAVE_POST_USER', value)
-    },
     //===================================== For like
-    aggDataListUser({state, commit}, value) {
-      commit('ADD_LIKE', value)
+    async fetchLikesByPost({state, commit}, id) {
+      try {
+        const like = await api.getAllLikeByPost(id)
+        commit('SAVA_lIKES', like.data)
+      } catch (e) {
+        console.log({message: e})
+      }
     }
   },
   getters: {
@@ -80,7 +100,7 @@ export default new Vuex.Store({
     },
     //===================================== For like
     getListLike(state) {
-      return state.listLike
+      return state.likes
     }
   },
   modules: {

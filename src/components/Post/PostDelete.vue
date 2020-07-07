@@ -9,7 +9,7 @@
     <v-card v-model="dialog">
       <v-card-title class="headline"></v-card-title>
       <v-card-text>
-        ¿Seguro quieres eliminar este publicación?
+        ¿Seguro quieres eliminar esta publicación?
       </v-card-text>
       <v-card-actions >
         <v-col>
