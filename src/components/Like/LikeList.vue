@@ -52,6 +52,8 @@
   import api from '../../services/api'
   import { mdiCloseThick } from '@mdi/js'
 
+  import {mapGetters} from 'vuex'
+
   export default {
     props: ['id'],
     data: () => ({
@@ -64,21 +66,23 @@
       likeSize: 0
       
     }),
+    computed: {
+      ...mapGetters(['getListLike'])
+    },
     methods: {
       async mostrar() {
-        try {
+        await this.$store.dispatch('fetchLikesByPost', this.id)
+        this.likes = this.getListLike
+        this.likeSize = this.likes.length
+        console.log(this.likeSize)
+        //this.likes = this.getListLike
+        /*try {
           const like = await api.getAllLikeByPost(this.id)
-          const list = like.data
-          for (let i = 0; i < list.length; i++) {
-            if (list[i].status === 'A') {
-              console.log(like[i])
-              this.likes.push(list[i])
-              this.likeSize += 1
-            }
-          }
+          this.likes = like.data
+          this.likeSize = this.likes.length
         } catch (e) {
            console.log(e)
-        }
+        }*/
       }
     },
     created() {

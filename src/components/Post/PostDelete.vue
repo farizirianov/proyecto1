@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog">
       <template v-slot:activator="{ on }">
-        <v-btn
+        <v-btn :disabled="dis"
           elevation="0" text small absolute right top @click.stop="dialog = true" v-on="on">
           <v-icon color="red">{{svg.delete}}</v-icon>
         </v-btn>
@@ -33,19 +33,31 @@
 import api from '../../services/api'
 import { mdiDeleteOutline } from '@mdi/js'
 export default {
-  props: ['id'],
+  props: ['id', 'pos', 'dest', 'disData'],
   data: () => ({
     svg: {
       delete: mdiDeleteOutline
     },
-    dialog: false
+    dialog: false,
+    dis: true
   }),
   methods: {
     async deletePost() {
-      await api.deletePost(this.id).then(() => {
+      const data = {
+        id: this.id,
+        pos: this.pos,
+        dest: this.dest
+      }
+      await this.$store.dispatch('deletePost', data).then(() => {
         this.dialog = false
       })
+    },
+    async disableButtom() {
+      this.dis = await this.disData
     }
+  },
+  created() {
+    this.disableButtom()
   }
 }
 </script>

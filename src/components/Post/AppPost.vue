@@ -15,18 +15,19 @@
       </v-col>
 
       <v-col cols="2">
-        <PostDelete :id="this.posts._id"></PostDelete>
+        <PostDelete :id="this.posts._id" :pos="this.pos" :dest="this.dest" :disData="activeVal"></PostDelete>
       </v-col>
     </v-row>
 
     <!-- -->
     <v-row>
       <v-col sm="2">
-        <div align="center">
-          <v-img class="card-img" :src="this.posts.imagePost">hola</v-img>
-        </div>
         <div>
           {{this.posts.content}}
+        </div>
+        <v-spacer></v-spacer>
+        <div align="center">
+          <v-img max-height="300" max-width="300" class="card-img" :src="this.posts.imagePost"></v-img>
         </div>
       </v-col>
     </v-row>
@@ -59,7 +60,7 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: ['posts', 'pos'],
+    props: ['posts', 'pos', 'dest'],
     components: {
       CommentPanel,
       PostDelete,
@@ -78,7 +79,9 @@
       },
       sizeAvatar: 50,
       color: "grey",
-      post: {}
+      post: {},
+      val: true,
+      activeVal: true
     }),
     computed: {
       ...mapGetters(['getUser'])
@@ -89,16 +92,19 @@
         const likeagg = like.data
         if(this.color === "grey") {
           if(!likeagg) {
-            this.color = "red"
+            
             await api.createLike(this.idUser, this.posts._id)
             await api.updateListInsignias(this.idUser, 'Like', 1)
-          } else if (likeagg && likeagg.status === 'I') {
             this.color = "red"
+          } else if (likeagg && likeagg.status === 'I') {
+            
             await api.updateLike(likeagg._id, 'A')
+            this.color = "red"
           }
         } else if (this.color === "red" && likeagg.status === 'A') {
-          this.color = "grey"
+          
           await api.updateLike(likeagg.data._id, 'I')
+          this.color = "grey"
         }
       },
       async validateLike() {
@@ -115,10 +121,36 @@
       },
       addUser() {
         this.idUser = this.getUser._id
+      },
+      /*async cargarLikes() {
+        if(this.val) {
+          const like = await api.getAllLikeByPost(this.posts._id)
+          const list = like.data
+          const data = {
+            id: this.posts._id,
+            likes: list,
+            size: list.length
+          }
+          this.$store.dispatch('aggDataListUser', data)
+          const s = this.$store.getters.getListLike
+          console.log("No distingo")
+          console.log(s)
+        }
+        this.val = false
+      },*/
+      deleteDisable() {
+        if(this.idUser === this.posts.idUser._id) {
+          this.activeVal = false
+        }
+      },
+      addUser() {
+        this.idUser = this.getUser._id
       }
     },
     created() {
+      //this.cargarLikes()
       this.addUser()
+      this.deleteDisable()
       this.validateLike()
     }
   }

@@ -34,7 +34,7 @@
 import api from '../../services/api'
 import { mdiDeleteOutline } from '@mdi/js'
 export default {
-  props: ['id'],
+  props: ['id','pos'],
   data: () => ({
     svg: {
       delete: mdiDeleteOutline
@@ -43,7 +43,11 @@ export default {
   }),
   methods: {
     async deleteComment() {
-      await api.deleteComment(this.id).then(() => {
+      const data = {
+        id: this.id,
+        pos: this.pos
+      }
+      await this.$store.dispatch('deleteComment', data).then(() => {
         this.dialog = false
       })
     }

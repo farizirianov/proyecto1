@@ -1,3 +1,4 @@
+
 <template>
   <v-container style="min-height: 100%" class="background-inicio init">
       <InitBar></InitBar>

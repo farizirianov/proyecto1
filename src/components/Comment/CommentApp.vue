@@ -1,55 +1,43 @@
 <template>
-  <v-list class="list" :key="keyRender">
-    <v-list-item-group v-model="comments">
-      <v-list-item
-        v-for="(comment, i) in comments"
-        :key="i"
-        link
+  <v-row class="pa-0">
+    <v-col cols="2">
+      <v-avatar :size="sizeAvatar">
+        <v-img :src="this.comments.idUser.image"></v-img>
+      </v-avatar>
+    </v-col>
+
+    <v-col>
+      <h4>
+        {{this.comments.idUser.firstName}} {{this.comments.idUser.lastName}}
+      </h4>
+      <h5>
+        {{this.comments.content}}
+      </h5>
+    </v-col>
+
+    <v-col cols="2">
+      <CommentDelete 
+        :id="this.comments._id"
+        :pos="this.pos"
       >
-        <v-list-item-avatar>
-          <v-img :src="comment.idUser.image"></v-img>
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title class="text--black">
-            {{comment.idUser.firstName}} {{comment.idUser.lastName}}
-          </v-list-item-title>
-          <v-list-item-subtitle class="text--black">
-            {{comment.content}}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-        <v-list-item-action>
-          <CommentDelete 
-            :id="comment._id"
-          >
-          </CommentDelete>
-        </v-list-item-action>
-      </v-list-item>
-    </v-list-item-group>
-  </v-list>
+      </CommentDelete>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 import api from '../../services/api'
 import CommentDelete from '@/components/Comment/CommentDelete'
 
+import {mapGetters} from 'vuex'
+
 export default {
-  props: ['idPost'],
+  props: ['comments', 'pos'],
   components: {
     CommentDelete
   },
   data: () => ({
-    comment: 1,
-    comments: [],
-    keyRender: 0
-  }),
-  methods: {
-    async getAllComment() {
-      const comment = await api.getAllCommentByPost(this.idPost)
-      this.comments = comment.data
-    }
-  },
-  created() {
-    this.getAllComment()
-  }
+    sizeAvatar: 30
+  })
 }
 </script>

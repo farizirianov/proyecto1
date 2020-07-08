@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:3000/"
+axios.defaults.baseURL = "http://localhost:3001/"
 
 class api {
   static createRol(data) {
@@ -82,6 +82,9 @@ class api {
   }
   static getAllCommentByPost(idPost) {
     return axios.get(`comment/post/${idPost}`)
+  }
+  static getOneComment(id) {
+    return axios.get(`comment/${id}`)
   }
   static deleteComment(id) {
     return axios.delete(`comment/${id}`)
