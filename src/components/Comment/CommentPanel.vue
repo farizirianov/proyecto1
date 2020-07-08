@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on }">
         <v-btn text small v-on="on" @click.stop="dialog = true" >
           <v-icon left>{{svg.comment}}</v-icon>
-          {{commentSize}} Comentarios
+          Comentarios
         </v-btn>
       </template>
 
@@ -21,8 +21,19 @@
             </v-col>
           </v-row>
         </v-card-title>
-          <CommentApp :idPost="this.idPost" class="pa-2">
-          </CommentApp>
+          <v-list class="list pa-2">
+            <v-list-item-group>
+              <v-list-item
+                v-for="(comm, i) in comments"
+                :key="i"
+                link
+              >
+                <v-list-item-content>
+                  <CommentApp :comments="comm" :pos="i"></CommentApp>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
         <v-divider></v-divider>
         <v-card-actions>
           <v-textarea
@@ -48,45 +59,61 @@
   import CommentApp from '@/components/Comment/CommentApp.vue'
   import { mdiComment, mdiCloseThick } from '@mdi/js'
   import { mapGetters } from 'vuex'
+
   export default {
     props: ['idPost'],
     components: {
       CommentApp
     },
     data: () => ({
-      idUser: '',
-      commentSize: 0,
+      user: {},
       dialog: false,
       svg: {
         comment: mdiComment,
         close: mdiCloseThick
       },
+      comm: 1,
       comment: {},
+      comments: [],
     }),
     computed: {
-      ...mapGetters(['getUser'])
+      ...mapGetters(['getUser', 'getListComments'])
     },
     methods: {
       async createComment() {
         try {
           if (this.comment.content !== '') {
-            await api.createComment(this.comment, this.idUser, this.idPost)
-            const prueba = await api.updateListInsignias(this.idUser, 'Comment', 1)
-            console.log(prueba)
+            const dato = await api.createComment(this.comment, this.user._id, this.idPost)
+            const data = {
+              _id: dato.data._id,
+              content: this.comment.content,
+              idUser: {
+                firstName: this.user.firstName,
+                lastName: this.user.lastName,
+                image: this.user.image
+              }
+            }
+            this.comments.push(data)
             this.comment = {
               content: ''
             }
+            await api.updateListInsignias(this.user._id, 'Comment', 1)
           }
         } catch (e) {
           console.log(e)
         }
       },
-      addUser() {
-        this.idUser = this.getUser._id
+      async addUser() {
+        this.user = await this.getUser
+      },
+      async getAllComment() {
+        await this.$store.dispatch('fetchCommentsByPost',this.idPost)
+        this.comments = this.getListComments
       }
     },
     created() {
       this.addUser()
+      this.getAllComment()
     }
   }
 </script>

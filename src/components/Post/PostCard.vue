@@ -25,6 +25,20 @@
           </v-row>
       </v-card-title>
       <v-divider></v-divider>
+      <v-row class="pa-3">
+        <v-avatar size="100">
+          <v-img class="card-img" :src="imageReload"></v-img>
+        </v-avatar>
+        <v-file-input
+          filled
+          v-model="imageReload"
+          accept="image/png, image/jpeg, image/bmp"
+          color="green"
+          :prepend-icon="svg.camera"
+          @change="mostrarFoto"
+        >
+        </v-file-input>
+      </v-row>
       <v-textarea 
         label="¿Qué estás pensando?"
         required rows="1" no-resize
@@ -46,9 +60,11 @@
 
 <script>
   import api from '../../services/api'
-  import { mdiPencilRemoveOutline, mdiCloseThick } from '@mdi/js';
+  import { mdiPencilRemoveOutline, mdiCloseThick, mdiCamera } from '@mdi/js';
 
   import { mapGetters } from 'vuex'
+
+  const reader = new FileReader()
 
   export default {
     data: () => ({
@@ -56,8 +72,10 @@
       dialog: false,
       svg: {
           pencil: mdiPencilRemoveOutline,
-          close: mdiCloseThick
+          close: mdiCloseThick,
+          camera: mdiCamera
       },
+      imageReload: '',
       post: {}
     }),
     computed: {
@@ -68,6 +86,7 @@
         this.idUser = this.getUser
       },
       async createPost() {
+        this.post.imagePost = this.imageReload
         try {
           const post = await api.createPost(this.post, this.idUser)
           await api.updateListInsignias(this.idUser, 'Post', 1)
@@ -78,6 +97,13 @@
         } catch (e) {
           console.log(e)
         }
+        this.imageReload = ''
+      },
+      mostrarFoto() {
+        reader.readAsDataURL(this.imageReload)
+        reader.onload = () => {
+          this.imageReload = reader.result
+        }      
       }
     },
     created() {

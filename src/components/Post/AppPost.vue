@@ -15,18 +15,19 @@
       </v-col>
 
       <v-col cols="2">
-        <PostDelete :id="this.posts._id"></PostDelete>
+        <PostDelete :id="this.posts._id" :pos="this.pos" :dest="this.dest" :disData="activeVal"></PostDelete>
       </v-col>
     </v-row>
 
     <!-- -->
     <v-row>
       <v-col sm="2">
-        <div align="center">
-          <v-img class="card-img" :src="this.posts.imagePost">hola</v-img>
-        </div>
         <div>
           {{this.posts.content}}
+        </div>
+        <v-spacer></v-spacer>
+        <div align="center">
+          <v-img max-height="300" max-width="300" class="card-img" :src="this.posts.imagePost"></v-img>
         </div>
       </v-col>
     </v-row>
@@ -59,7 +60,7 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: ['posts', 'pos'],
+    props: ['posts', 'pos', 'dest'],
     components: {
       CommentPanel,
       PostDelete,
@@ -79,7 +80,8 @@
       sizeAvatar: 50,
       color: "grey",
       post: {},
-      val: true
+      val: true,
+      activeVal: true
     }),
     computed: {
       ...mapGetters(['getUser'])
@@ -120,7 +122,7 @@
       addUser() {
         this.idUser = this.getUser._id
       },
-      async cargarLikes() {
+      /*async cargarLikes() {
         if(this.val) {
           const like = await api.getAllLikeByPost(this.posts._id)
           const list = like.data
@@ -135,11 +137,17 @@
           console.log(s)
         }
         this.val = false
+      },*/
+      deleteDisable() {
+        if(this.idUser === this.posts.idUser._id) {
+          this.activeVal = false
+        }
       }
     },
     created() {
       //this.cargarLikes()
       this.addUser()
+      this.deleteDisable()
       this.validateLike()
     }
   }

@@ -27,6 +27,7 @@
             filled
             accept="image/png, image/jpeg, image/bmp"
             color="green"
+            v-model="image"
             :prepend-icon="svg.camera"
             @change="mostrarFoto"
           >
@@ -119,6 +120,7 @@ export default {
     showPassword: false,
     user: {
     },
+    image: '',
     imageReload: '',
     dialog: false,
     emailRules: [

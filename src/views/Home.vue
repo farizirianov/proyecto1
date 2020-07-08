@@ -2,14 +2,14 @@
   <v-main class="pa-0">
     <SearchBar :title="title"></SearchBar>
       <v-list class="pa-0">
-        <v-list-item-group v-model="posts" class="background-inicio">
+        <v-list-item-group class="background-inicio">
           <v-list-item
-            v-for="(post, i) in posts.slice().reverse()"
+            v-for="(post, i) in posts"
             :key="i"
             link
           >
             <v-list-item-content>
-              <AppPost :posts="post" :pos="i"></AppPost>
+              <AppPost :posts="post" :pos="i" :dest="name"></AppPost>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -29,13 +29,13 @@ import Navbar from '../components/Layout/NavBar'
 import {mapGetters} from 'vuex'
 
 export default {
-  name: 'Home',
   components: {
     AppPost,
     Navbar,
     SearchBar
   },
   data: () =>({
+    name: 'Home',
     title: 'Inicio',
     post: 1,
     posts: [],
