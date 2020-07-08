@@ -59,7 +59,6 @@
   import CommentApp from '@/components/Comment/CommentApp.vue'
   import { mdiComment, mdiCloseThick } from '@mdi/js'
   import { mapGetters } from 'vuex'
-
   export default {
     props: ['idPost'],
     components: {
