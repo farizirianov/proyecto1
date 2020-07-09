@@ -66,8 +66,6 @@
 
   const reader = new FileReader()
 
-  import { mapGetters } from 'vuex'
-
   export default {
     data: () => ({
       idUser: '',
