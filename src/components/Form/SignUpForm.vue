@@ -108,27 +108,24 @@ export default {
     }),
     methods: {
         async createUser() {
-            try {
-                const newUser = await api.createUser(this.user)
+                await api.createUser(this.user)
+                .then((result) => {
+                    if(result.status === 202) {
+                        const message = result.data.text
+                        this.saveErr(message)
+                        reject()
+                    }
+                this.saveErr(message)
                 this.keyRender += 1
                 this.asignInsig(newUser.data)
-                this.$forceUpdate()
-                /*this.user = {
-                    email: '',
-                    firstName: '',
-                    lastName: '',
-                    password: '',
-                    confirmPassword: ''
-                }*/
-                /*if (token) {
-                    localStorage.setItem("jwt", token)
-                    this.router.push("/main")
-                } else {
-                    console.log("Error, no token")
-                }*/
-            } catch (e) {
-                console.log(e)
-            }
+                this.$forceUpdate()                
+                resolve()
+                }).catch((err) => {
+            })
+            
+        },
+        saveErr(mess){
+            this.$store.dispatch('errores', mess)
         },
         async asignInsig(idU) {
             this.list = await api.getAllInsignias()

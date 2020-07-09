@@ -74,15 +74,6 @@
         await this.$store.dispatch('fetchLikesByPost', this.id)
         this.likes = this.getListLike
         this.likeSize = this.likes.length
-        console.log(this.likeSize)
-        //this.likes = this.getListLike
-        /*try {
-          const like = await api.getAllLikeByPost(this.id)
-          this.likes = like.data
-          this.likeSize = this.likes.length
-        } catch (e) {
-           console.log(e)
-        }*/
       }
     },
     created() {

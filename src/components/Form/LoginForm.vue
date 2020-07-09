@@ -66,20 +66,24 @@ export default {
         svg: {
             visibility: mdiEyeOutline,
             visibilityOff: mdiEyeOffOutline,
-        },
+        }
     }),
     methods: {
         async login() {
-            try {
-                const muser = await api.loginUser(this.user)
-                const posts = await api.getAllPost()
-                localStorage.setItem("jwt", muser.data)
-                this.saveData(VueJwtDecode.decode(muser.data), posts.data)
-                console.log("Conexion establecida")
-                router.push({name: 'home'})
-            } catch (e) {
-                console.log(e)
-            }
+          await api.loginUser(this.user)
+            .then((result) =>{
+              if(result.status === 202) {
+                  const message = result.data.text
+                  this.saveErr(message)
+                  reject()
+              }
+              localStorage.setItem("jwt", result.data)
+              this.saveData(VueJwtDecode.decode(result.data))
+              router.push({name: 'home'})
+              resolve()
+            })
+            .catch((err) => {
+            })
         },
         async reset() {
                 this.user.email = '';
@@ -89,6 +93,9 @@ export default {
             this.$store.dispatch('addDataUser', dataUser)
             this.$store.dispatch('addDataPosts', dataPost)
             //this.$store.dispatch('addDataPostsUser', postsUs)
+        },
+        saveErr(mess){
+            this.$store.dispatch('errores', mess)
         }
     }
 }
