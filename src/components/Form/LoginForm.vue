@@ -66,19 +66,27 @@ export default {
         svg: {
             visibility: mdiEyeOutline,
             visibilityOff: mdiEyeOffOutline,
-        },
+        }
     }),
     methods: {
         async login() {
-            try {
-                const muser = await api.loginUser(this.user)
-                localStorage.setItem("jwt", muser.data)
-                this.saveData(VueJwtDecode.decode(muser.data))
-                console.log("Conexion establecida")
-                router.push({name: 'home'})
-            } catch (e) {
-                console.log(e)
-            }
+          await api.loginUser(this.user)
+            .then((result) =>{
+              if(result.status === 202) {
+                  console.log(result.data.code)
+                  console.log(result.data.text)
+                  reject()
+              }
+              console.log("succes")
+              console.log(result.data)
+              localStorage.setItem("jwt", result.data)
+              this.saveData(VueJwtDecode.decode(result.data))
+              console.log("Conexion establecida")
+              router.push({name: 'home'})
+              resolve()
+            })
+            .catch((err) => {
+            })
         },
         saveData(dataUser) {
             this.$store.dispatch('addDataUser', dataUser)
