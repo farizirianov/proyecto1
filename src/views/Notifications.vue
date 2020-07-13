@@ -47,7 +47,7 @@ export default {
         notifications: [],
         idUser: '',
         visible: false,
-        centro: 'center'
+        centro: 'center pa-0'
     }),
     computed: {
       ...mapGetters(['getUser', 'getListNotifications']),
@@ -58,7 +58,7 @@ export default {
           await this.$store.dispatch('fetchNotifications', this.idUser)
           this.notifications = this.getListNotifications
           if (this.notifications.length > 0) {
-            this.centro = ''
+            this.centro = 'pa-0'
             this.visible = true
           }
         },

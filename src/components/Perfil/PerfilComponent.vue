@@ -43,7 +43,7 @@
               </div>
               <div class="text-center">
                 <span class="md">
-                  Descripción
+                  {{user.description}}
                 </span>
               </div>
             </v-card-text>

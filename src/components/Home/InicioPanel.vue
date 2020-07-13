@@ -3,7 +3,7 @@
     <template v-slot:activator="{ on }">
       <v-btn
         text small absolute right top @click.stop="dialog = true" v-on="on">
-        <v-icon>H</v-icon>
+        <v-icon>{{svg.salir}}</v-icon>
       </v-btn>
     </template>
     <v-card
@@ -45,7 +45,7 @@
 <script>
   import api from '../../services/api'
   import {mapGetters} from 'vuex'
-  import {mdiLogout} from '@mdi/js'
+  import {mdiLogout, mdiDotsVertical} from '@mdi/js'
 
   export default {
     data: () => ({
@@ -53,7 +53,8 @@
       dialog: false,
       user: {},
       svg: {
-        logout: mdiLogout
+        logout: mdiLogout,
+        salir: mdiDotsVertical
       }
     }),
     computed: {
