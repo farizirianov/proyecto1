@@ -44,7 +44,7 @@
 
 <script>
   import api from '../../services/api'
-
+  import {mapGetters} from 'vuex'
   import {mdiLogout} from '@mdi/js'
 
   export default {
@@ -56,14 +56,18 @@
         logout: mdiLogout
       }
     }),
+    computed: {
+      ...mapGetters(['getUser'])
+    },
     methods: {
-      logUserOut() {
-      localStorage.removeItem("jwt")
-      this.$router.push("/")
-    }
+      async logUserOut() {
+        localStorage.removeItem("jwt")
+        const data = await api.dropUser(this.getUser._id)
+        this.$router.push("/")
+      }
     },
     created() {
-      this.user = this.$store.getters.getUser
+      this.user = this.getUser
     }
   }
 </script>

@@ -66,13 +66,7 @@
       auxLikes: []
     }),
     computed: {
-      ...mapGetters(['getListLike']),
-      likes() {
-        this.$store.dispatch('fetchLikesByPost', this.id)
-        this.auxLikes = this.getListLike
-        this.likeSize = this.auxLikes.length
-        console.log(this.likeSize)
-      }
+      ...mapGetters(['getListLike'])
     },
     methods: {
       async mostrar() {

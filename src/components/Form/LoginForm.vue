@@ -93,8 +93,6 @@ export default {
             },
         saveData(dataUser, dataPost) {
             this.$store.dispatch('addDataUser', dataUser)
-            this.$store.dispatch('addDataPosts', dataPost)
-            //this.$store.dispatch('addDataPostsUser', postsUs)
         },
         saveErr(mess){
             this.$store.dispatch('errores', mess)

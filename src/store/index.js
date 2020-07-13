@@ -154,7 +154,6 @@ export default new Vuex.Store({
         resolve()
       })
       .catch(()=>{
-
       })
     }
   },

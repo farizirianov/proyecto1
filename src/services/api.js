@@ -41,6 +41,10 @@ class api {
       description: data.description
     })
   }
+  
+  static dropUser(idU) {
+    return axios.put(`user/drop/${idU}`)
+  }
   //----For Posts
   static createPost(data, id) {
     return axios.post('post/', {

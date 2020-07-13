@@ -21,12 +21,6 @@
       InicioPanel
     },
     data: () => ({
-    }),
-    methods: {
-      logUserOut() {
-        localStorage.removeItem("jwt")
-        this.$router.push("/")
-      }
-    }
+    })
   }
 </script>

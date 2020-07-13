@@ -39,18 +39,14 @@ export default {
     title: 'Inicio',
     post: 1,
     posts: [],
-    list: []
   }),
   computed: {
     ...mapGetters(['getAllPost']), // <---- Here
   },
   methods: {
-    addPosts() {
+    async addPosts() {
+      await this.$store.dispatch('fetchPosts')
       this.posts = this.getAllPost
-    },
-    verDatos() {
-      this.list = this.$store.getters.getListLike
-      console.log(this.list)
     }
   },
   created() {
