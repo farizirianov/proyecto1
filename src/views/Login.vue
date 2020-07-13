@@ -1,13 +1,9 @@
 <template>
-    <v-container class="gray">
-      <InitBar2></InitBar2>
-        <v-row justify="center">
-            <v-col cols="11" sm="6" md="4">
-                <LoginForm></LoginForm>
-            </v-col>
-        </v-row>
-      <InitNavbar></InitNavbar>
-    </v-container>
+  <v-container style="min-height: 460px" class="background-inicio">
+    <InitBar2></InitBar2>
+    <LoginForm></LoginForm>
+    <InitNavbar></InitNavbar>
+  </v-container>
 </template>
 
 <script>

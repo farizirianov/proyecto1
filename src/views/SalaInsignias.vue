@@ -1,6 +1,6 @@
 <template>
   <v-main class="pa-0">
-    <SearchBar :title="title" :idUser="this.idUser"></SearchBar>
+    <SearchBar :title="title"></SearchBar>
       <v-list class="pa-0">
         <v-list-item-group v-model="insignias" class="background-inicio pa-0">
           <v-list-item
@@ -53,6 +53,7 @@
   import api from '../services/api'
   import Navbar from '@/components/Layout/NavBar'
   import SearchBar from '@/components/Layout/SearchBar'
+  import {mapGetters} from 'vuex'
 
   export default {
     components: {
@@ -64,10 +65,14 @@
        insignia: 1,
        insignias: []
     }),
+    computed: {
+      ...mapGetters(['getUser'])
+    },
     methods: {
       async mostrar() {
+        const idUser = this.getUser._id
         try {
-          const insig = await api.getAllInsigniasByUser(this.idUser)
+          const insig = await api.getAllInsigniasByUser(idUser)
           this.insignias = insig.data
           console.log(insig)
         } catch (e) {

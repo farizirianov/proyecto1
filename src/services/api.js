@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:3001/"
+axios.defaults.baseURL = "http://localhost:3000/"
 
 class api {
   static createRol(data) {
@@ -63,13 +63,24 @@ class api {
   }
   //----For Notifiactions
 
-  static createNotification(data, idU, msg) {
+  static createNotification(idU, data, user) {
     return axios.post('notification/', {
       idUser:  idU,
       group: data,
-      message: msg
-
+      idUserSecond: user
     })
+  }
+  static getOneNotification(idU) {
+
+  }
+  static getAllNotificationByUser(idU) {
+    return axios.get(`notification/user/${idU}`)
+  }
+  static getUnmarkedNotifications(idU) {
+    return axios.get(`notification/unmark/${idU}`)
+  }
+  static markNotifications(idU) {
+    return axios.put(`notification/user/${idU}`)
   }
   
   //----For Comments

@@ -1,4 +1,8 @@
 <template>
+  <v-card
+    class="init pa-2"
+    flat tile
+  >
     <form ref="form" :key="keyRender" class="white">
         <div class="center">
           <v-img
@@ -59,15 +63,13 @@
         </div>
         <!-------------------------  END FORM ERRORS ------------------->
 
-        <div class="mt-5 center">
-            <v-btn v-on:click="createUser" class="mr-4" color="#039629" elevation="0" dark>
+        <v-card-actions class="justify-center">
+            <v-btn v-on:click="createUser" color="#039629" elevation="0" dark>
                Registrar
             </v-btn>
-            <v-btn v-on:click="reset" color="#039629" elevation="0" dark>
-               Limpiar
-            </v-btn>
-        </div>
+        </v-card-actions>
     </form>
+  </v-card>
 </template>
 
 <script>

@@ -1,8 +1,8 @@
 <template>
-  <v-container style="min-height: 100%" class="background-inicio init">
-      <InitBar></InitBar>
-      <InicioComponent></InicioComponent>
-      <InitNavbar></InitNavbar>
+  <v-container style="min-height: 100%" class="background-inicio init pa-0 ma-0">
+    <InitBar></InitBar>
+    <InicioComponent></InicioComponent>
+    <InitNavbar></InitNavbar>
   </v-container>
 </template>
 

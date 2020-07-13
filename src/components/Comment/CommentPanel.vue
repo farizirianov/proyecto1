@@ -60,7 +60,7 @@
   import { mdiComment, mdiCloseThick } from '@mdi/js'
   import { mapGetters } from 'vuex'
   export default {
-    props: ['idPost'],
+    props: ['idPost', 'userPost'],
     components: {
       CommentApp
     },
@@ -97,6 +97,8 @@
               content: ''
             }
             await api.updateListInsignias(this.user._id, 'Comment', 1)
+            const noti = await api.createNotification(this.userPost,'Comment', this.user._id)
+            console.log(noti)
           }
         } catch (e) {
           console.log(e)

@@ -10,7 +10,9 @@ export default new Vuex.Store({
     listPost: [],
     postByUser: [],
     likes: {},
-    comments: []
+    comments: [],
+    listNot: [],
+    unmarkNoti: []
   },
   mutations: {
     //===================================== For user
@@ -49,6 +51,13 @@ export default new Vuex.Store({
     },
     DELETE_COMMENT(state, value) {
       state.comments.splice(value, 1)
+    },
+    //===================================== For Notifications
+    SAVE_NOTIFICATIONS(state, value) {
+      state.listNot = value
+    },
+    CONT_NOTIFICATIONS(state, value) {
+      state.unmarkNoti = value
     }
   },
   actions: {
@@ -119,6 +128,26 @@ export default new Vuex.Store({
       } catch (e) {
         console.log({message: e})
       }
+    },
+    //===================================== For Notifications
+    async fetchNotifications({commit}, value) {
+      await api.getAllNotificationByUser(value)
+      .then((result) => {
+        commit('SAVE_NOTIFICATIONS', result.data)
+        resolve()
+      })
+      .catch(() => {
+      })
+    },
+    async fetchUnmarkedNoti({commit}, value) {
+      await api.getUnmarkedNotifications(value)
+      .then((result) => {
+        commit('CONT_NOTIFICATIONS', result.data)
+        resolve()
+      })
+      .catch(()=>{
+
+      })
     }
   },
   getters: {
@@ -140,6 +169,13 @@ export default new Vuex.Store({
     //===================================== For Comments
     getListComments(state) {
       return state.comments
+    },
+    //===================================== For Notifications
+    getListNotifications(state) {
+      return state.listNot
+    },
+    getCont(state) {
+      return state.unmarkNoti.length
     }
   },
   modules: {

@@ -41,7 +41,7 @@
           </v-btn>
           <LikeList :id="this.posts._id">
           </LikeList>
-          <CommentPanel :idPost="this.posts._id"></CommentPanel>
+          <CommentPanel :idPost="this.posts._id" :userPost="this.posts.idUser._id"></CommentPanel>
         </v-card-actions>
       </v-col>
     </v-row>

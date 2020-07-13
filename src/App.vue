@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main class="background-inicio">
+    <v-main class="background-inicio init">
       <router-view></router-view>
     </v-main>
   </v-app>

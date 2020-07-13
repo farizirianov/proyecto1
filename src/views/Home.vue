@@ -1,6 +1,7 @@
 <template>
   <v-main class="pa-0">
     <SearchBar :title="title"></SearchBar>
+      <h1>{{mostrar}}</h1>
       <v-list class="pa-0">
         <v-list-item-group class="background-inicio">
           <v-list-item
@@ -42,7 +43,10 @@ export default {
     list: []
   }),
   computed: {
-    ...mapGetters(['getAllPost']) // <---- Here
+    ...mapGetters(['getAllPost']), // <---- Here
+    mostrar() {
+      return this.posts.length
+    }
   },
   methods: {
     async addPosts() {

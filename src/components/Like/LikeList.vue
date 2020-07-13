@@ -6,7 +6,6 @@
           color="#2c003e" text small
           @click.stop="dialog = true" 
           v-on="on"
-          v-on:click="mostrar"
         >
          {{likeSize}} Me Gusta
         </v-btn>
@@ -26,7 +25,7 @@
         </v-card-title>
         <v-divider></v-divider>
           <v-list rounded>
-            <v-list-item-group v-model="likes">
+            <v-list-item-group>
               <v-list-item
                 v-for="(like, i) in likes"
                 :key="i"
@@ -63,11 +62,17 @@
       },
       like: 1,
       likes: [],
-      likeSize: 0
-      
+      likeSize: 0,
+      auxLikes: []
     }),
     computed: {
-      ...mapGetters(['getListLike'])
+      ...mapGetters(['getListLike']),
+      likes() {
+        this.$store.dispatch('fetchLikesByPost', this.id)
+        this.auxLikes = this.getListLike
+        this.likeSize = this.auxLikes.length
+        console.log(this.likeSize)
+      }
     },
     methods: {
       async mostrar() {

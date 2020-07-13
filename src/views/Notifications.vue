@@ -1,32 +1,29 @@
 <template>
-    <v-main>
-        <SearchBar :title="title"></SearchBar>
-    <v-container>
-        <v-row>
-            <v-col cols="12" offset-sm="3" sm="6">
-                <template>
-                <v-card class="mx-auto" max-width="300" tile >
-                    <v-subheader>NOTIFICATIONS</v-subheader>
-                    <!--------------------- NOTIFICATION LIST --------------------->
-                    <v-list>
-                        <v-list-item>
-                            There aren't any new notifications
-                        </v-list-item>
+  <v-container style="min-height: 100%" :class="centro">
+    <SearchBar :title="title"></SearchBar>
 
-                    </v-list>
-                    <v-list rounded>
-                        <!------------------- NOTIFICATION ITEM ------------------>
-                        <NotificationItem class="notification"></NotificationItem>
-                        <!------------------- END NOTIFICATION ITEM ------------------>
-                    </v-list>
-                    <!--------------------- END NOTIFICATION LIST --------------------->
-                </v-card>
-                </template>
-            </v-col>
-        </v-row>        
-    </v-container>
+      <v-list class="pa-2" v-show="visible">
+        <v-list-item-group>
+          <v-list-item
+            v-for="(item,i) in notifications"
+            :key="i"
+          >
+            <v-list-item-content>
+              <NotificationItem :notification="item"></NotificationItem>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+
+      <v-card v-show="!visible" class="pa-1">
+        <v-card-text class="center">
+          <h3>
+            No tienes Notificaciones
+          </h3>
+        </v-card-text>
+      </v-card>
     <Navbar></Navbar>
-    </v-main>
+  </v-container>
 </template>
 
 <script>
@@ -36,7 +33,8 @@ import SearchBar from '@/components/Layout/SearchBar'
 import NotificationItem from '@/components/Notifications/NotificationItem.vue';
 
 // VUEX
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
+
 export default {
     components: {
         NotificationItem,
@@ -46,13 +44,29 @@ export default {
     data: () => ({
         title: 'Notificaciones',
         item: 1,
-        items: [
-            { text: 'Real-Time', icon: 'mdi-clock' },
-            { text: 'Audience', icon: 'mdi-account' },
-            { text: 'Conversions', icon: 'mdi-flag' },
-        ],
-    })
+        notifications: [],
+        idUser: '',
+        visible: false,
+        centro: 'center'
+    }),
+    computed: {
+      ...mapGetters(['getUser', 'getListNotifications']),
+    },
+    methods: {
+        async getDatos() {
+          this.idUser = this.getUser._id
+          await this.$store.dispatch('fetchNotifications', this.idUser)
+          this.notifications = this.getListNotifications
+          if (this.notifications.length > 0) {
+            this.centro = ''
+            this.visible = true
+          }
+        },
+    },
+    created() {
+        this.getDatos()
     }
+}
 </script>
 
 <style>

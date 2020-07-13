@@ -49,8 +49,8 @@
         v-model="post.content"
       >
       </v-textarea>
-      <v-card-actions>
-        <v-btn text class="primario white--text" v-on:click="createPost" @click="dialog = false">
+      <v-card-actions class="justify-end">
+        <v-btn text class="primario white--text" v-on:click="createPost">
           Publicar
         </v-btn>
       </v-card-actions>
@@ -93,11 +93,12 @@
           const posts = await api.getPostById(post.data._id)
           this.$store.dispatch('updatePosts', posts.data)
           console.log("Post creado")
+          this.imageReload = ''
           this.dialog = false
         } catch (e) {
           console.log(e)
         }
-        this.imageReload = ''
+        
       },
       mostrarFoto() {
         reader.readAsDataURL(this.imageReload)
