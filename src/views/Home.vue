@@ -1,11 +1,10 @@
 <template>
   <v-main class="pa-0">
     <SearchBar :title="title"></SearchBar>
-      <h1>{{mostrar}}</h1>
       <v-list class="pa-0">
         <v-list-item-group class="background-inicio">
           <v-list-item
-            v-for="(post, i) in posts"
+            v-for="(post, i) in posts.slice().reverse()"
             :key="i"
             link
           >
@@ -44,15 +43,14 @@ export default {
   }),
   computed: {
     ...mapGetters(['getAllPost']), // <---- Here
-    mostrar() {
-      return this.posts.length
-    }
   },
   methods: {
-    async addPosts() {
-      //const posts = await api.getAllPost()
-      await this.$store.dispatch('fetchPosts')
-      this.posts = this.getAllPost // <---- Here
+    addPosts() {
+      this.posts = this.getAllPost
+    },
+    verDatos() {
+      this.list = this.$store.getters.getListLike
+      console.log(this.list)
     }
   },
   created() {

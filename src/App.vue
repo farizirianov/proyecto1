@@ -1,16 +1,22 @@
 <template>
   <v-app>
     <v-main class="background-inicio init">
+      <Error v-if="getError" :message="getError"></Error>
       <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-
+import Error from './components/Error/Error'
+import {mapGetters} from 'vuex'
 export default {
   name: 'App',
   components: {
+    Error
+  },
+  computed: {
+    ...mapGetters(['getError'])
   }
 };
 </script>

@@ -142,6 +142,9 @@
         if(this.idUser === this.posts.idUser._id) {
           this.activeVal = false
         }
+      },
+      addUser() {
+        this.idUser = this.getUser._id
       }
     },
     created() {

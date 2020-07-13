@@ -12,7 +12,8 @@ export default new Vuex.Store({
     likes: {},
     comments: [],
     listNot: [],
-    unmarkNoti: []
+    unmarkNoti: [],
+    error:''
   },
   mutations: {
     //===================================== For user
@@ -58,10 +59,17 @@ export default new Vuex.Store({
     },
     CONT_NOTIFICATIONS(state, value) {
       state.unmarkNoti = value
+    },
+    //===================================== For Errors
+    SAVE_ERROR(state, value){
+      state.error = value
     }
   },
   actions: {
     //===================================== For user
+    errores({state, commit}, value){
+      commit('SAVE_ERROR', value)
+    },
     addDataUser({state, commit}, value) {
       commit('SAVE_USER', value)
     },
@@ -152,6 +160,9 @@ export default new Vuex.Store({
   },
   getters: {
     //===================================== For user
+    getError(state){
+      return state.error
+    },
     getUser (state) {
       return state.user
     },

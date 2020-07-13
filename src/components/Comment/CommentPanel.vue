@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on }">
         <v-btn text small v-on="on" @click.stop="dialog = true" >
           <v-icon left>{{svg.comment}}</v-icon>
-          Comentarios
+          {{commentSize}} Comentarios
         </v-btn>
       </template>
 

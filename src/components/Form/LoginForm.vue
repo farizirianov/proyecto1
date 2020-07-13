@@ -75,23 +75,29 @@ export default {
           await api.loginUser(this.user)
             .then((result) =>{
               if(result.status === 202) {
-                  console.log(result.data.code)
-                  console.log(result.data.text)
+                  const message = result.data.text
+                  this.saveErr(message)
                   reject()
               }
-              console.log("succes")
-              console.log(result.data)
               localStorage.setItem("jwt", result.data)
               this.saveData(VueJwtDecode.decode(result.data))
-              console.log("Conexion establecida")
               router.push({name: 'home'})
               resolve()
             })
             .catch((err) => {
             })
         },
-        saveData(dataUser) {
+        async reset() {
+                this.user.email = '';
+                this.user.password = '';
+            },
+        saveData(dataUser, dataPost) {
             this.$store.dispatch('addDataUser', dataUser)
+            this.$store.dispatch('addDataPosts', dataPost)
+            //this.$store.dispatch('addDataPostsUser', postsUs)
+        },
+        saveErr(mess){
+            this.$store.dispatch('errores', mess)
         }
     }
 }
